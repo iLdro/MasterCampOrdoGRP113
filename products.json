@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "category": "Antibiotiques ",
+      "name": "Maxilase",
+      "image": "https://cdn.pim.mesoigner.fr/mesoigner/4c565895a525a7326629a75cad49ae56/apothical-thumbnail-200-200-retina-inset/0/2/6/8/1/produits/images/maxilase-alpha-amylase-3000-u-ceip-comprimes-enrobes-maux-de-gorge-b-30.png",
+      "price": 5,
+      "ordo": true,
+      "id": 5
+    },
+    {
+      "category": "Antibiotiques ",
+      "name": "Strepsils",
+      "image": "https://media-services.digital-rb.com/s3/live-productcatalogue/sys-master/images/h1a/hdc/8799846596638/03400935295118_Front-1.png?width=400&height=400&mode=crop",
+      "price": 3,
+      "ordo": false,
+      "id": 6
+    },
+    {
+      "category": "Cardiologie  ",
+      "name": "Fosinopril",
+      "image": "https://www.simplymedsonline.co.uk/storage/products/5665/images/fosinopril-10mg-tablets-es-681654778973.png",
+      "price": 2,
+      "ordo": true,
+      "id": 11
+    },
+    {
+      "category": "Dermatologie  ",
+      "name": "Bepanthen",
+      "image": "https://pharmacie-citypharma.fr/206934-large_default/bepanthen-sensicalm-creme-anti-demangeaisons.jpg",
+      "price": 4,
+      "ordo": false,
+      "id": 15
+    },
+    {
+      "category": "Dermatologie  ",
+      "name": "Biafine",
+      "image": "https://www.biafine-lagamme.fr/sites/biafine_fr/files/styles/product_image/public/product-images/soleilbiafine-emulsion-visage-fps50-1.png",
+      "price": 1,
+      "ordo": false,
+      "id": 16
+    }
+  ]
+}
