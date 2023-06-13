@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import ProductList from "@/views/ProductList.vue";
 import ProductDetails from "@/views/ProductDetails.vue";
-import AddProduct from "@/views/AddProduct.vue";
+import DoctorView from "@/views/DoctorView.vue";
 
 const routes = [
   {
@@ -29,10 +29,10 @@ const routes = [
       import(/* webpackChunkName: "client" */ "../views/ClientView.vue"),
   },
   {
-    path: "/guest",
-    name: "guest",
+    path: "/pharma",
+    name: "pharmacie",
     component: () =>
-      import(/* webpackChunkName: "guest" */ "../views/GuestView.vue"),
+      import(/* webpackChunkName: "guest" */ "../views/PharmaView.vue"),
   },
   {
     path: "/Product",
@@ -46,10 +46,10 @@ const routes = [
     component: ProductDetails,
   },
   {
-    path: "/add",
-    name: "AddProduct",
+    path: "/doctor",
+    name: "DoctorVieew",
     props: true,
-    component: AddProduct,
+    component: DoctorView,
   },
 ];
 

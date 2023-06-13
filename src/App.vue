@@ -8,12 +8,13 @@
   <nav>
     |<router-link to="/">Home</router-link> |
     <router-link to="/Product">Admin Page</router-link> |
-    <router-link to="/add">Add Product</router-link> |
+    <router-link to="/doctor">Medecin</router-link> |
     <router-link to="/client">Client</router-link> |
-    <router-link to="/guest">Guest</router-link> |
+    <router-link to="/pharma">Pharmacie</router-link> |
 
     <router-link to="/register">Register</router-link> |
     <router-link to="/login">Login</router-link> |
+    <button id="logout">Log out</button>
   </nav>
   <router-view />
   
@@ -61,6 +62,16 @@ nav a {
 }
 nav a.router-link-exact-active {
   color: #000000;
+}
+
+#logout{
+  background-color: #00a38c;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 </style>
