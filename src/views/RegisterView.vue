@@ -1,25 +1,26 @@
+
 <template>
   <div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
   </div>
-
+<div>
   <button v-if="showButtons" @click="showForm('form1')">Client</button>
     <button v-if="showButtons" @click="showForm('form2')">Medecin</button>
     <button v-if="showButtons" @click="showForm('form3')">Pharmarcie</button>
   <form v-if="currentForm === 'form1'">
   <h1>Register</h1>
     <div class="gauche1">
-      <label for="email">Username</label>
-      <input type="email" id="email" placeholder="Username" /><br />
+      <label for="name">Username</label>
+      <input type="text" id="name" placeholder="Username" v-model="form1.name" required /><br />
     </div>
     <div class="droite1">
       <label for="email">Email</label>
       <input type="email" id="email" placeholder="Enter your email" /><br />
     </div>
-    <div class="milieu">
-      <label for="email">Numéro Carte Vitale</label>
-      <input type="email" id="email" placeholder="ENter your Carte Vitale ID" /><br />
+    <div class="gauche1">
+      <label for="cartv">Numéro Carte Vitale</label>
+      <input type="text" id="cartv" placeholder="ENter your Carte Vitale ID" v-model="form1.cartev" required/><br />
     </div>
     <div class="gauche2">
       <label for="password">Password</label>
@@ -27,14 +28,15 @@
         type="password"
         id="password"
         placeholder="Enter your password"
+        required
       /><br />
     </div>
-    <div class="droite2">
+    <div class="gauche2">
       <label for="password2">Confirm password</label>
       <input
         type="password"
         id="password2"
-        placeholder="Confirm your password"
+        placeholder="Confirm your password" required
       /><br />
     </div>
     <button type="submit">Register</button>
@@ -43,8 +45,8 @@
   <form v-if="currentForm === 'form2'">
     <h1>Register</h1>
     <div class="gauche1">
-      <label for="email">Username</label>
-      <input type="email" id="email" placeholder="Username" /><br />
+      <label for="name">Username</label>
+      <input type="text" id="username" placeholder="Username" /><br />
     </div>
     <div class="droite1">
       <label for="email">Email</label>
@@ -68,20 +70,49 @@
     </div>
     <button type="submit">Register</button>
   </form>
+</div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      showButtons: true, // Initially show the buttons
-      currentForm: null
+      showButtons: true, 
+      currentForm: null,
+      form1: {
+        name: '',
+        email: '',
+        cartev: '',
+        password: ''
+      },
+      form2: {
+        name: '',
+        email: '',
+        password: ''
+      },
+      
+      showResults: false,
+      formResults: null
     };
   },
   methods: {
     showForm(form) {
       this.currentForm = form;
-      this.showButtons = false; // Hide the buttons after a form is selected
+      this.showButtons = false; 
+    },
+    submitForm() {
+      
+      let formData = null;
+      if (this.currentForm === 'form1') {
+        formData = this.form1;
+      } else if (this.currentForm === 'form2') {
+        formData = this.form2;
+      } else if (this.currentForm === 'form3') {
+        formData = this.form3;
+      }
+
+      
+      this.formResults = JSON.stringify(formData, null, 2);
     }
   }
 };
