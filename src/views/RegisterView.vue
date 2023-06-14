@@ -1,107 +1,381 @@
 
 <template>
-  <div class="background">
+  <!--<div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
-  </div>
+  </div>-->
 <div>
   <button v-if="showButtons" @click="showForm('form1')">Client</button>
     <button v-if="showButtons" @click="showForm('form2')">Medecin</button>
     <button v-if="showButtons" @click="showForm('form3')">Pharmarcie</button>
-  <form v-if="currentForm === 'form1'">
+  <form @submit.prevent= "handleSubmit" v-if="currentForm === 'form1'">
   <h1>Register</h1>
     <div class="gauche1">
-      <label for="name">Username</label>
-      <input type="text" id="name" placeholder="Username" v-model="form1.name" required /><br />
+      <label for="name">Surname</label>
+      <input 
+        v-model="form1.surname" 
+        type="text" 
+        id="surname" 
+        placeholder="Enter your surname" 
+        required /><br />
     </div>
+
     <div class="droite1">
+      <label for="name" >Name</label>
+      <input 
+        v-model="form1.name" 
+        type="text" 
+        id="name" 
+        placeholder="Enter your name" 
+        required/><br />
+    </div>
+
+    <div class="droite2">
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" /><br />
+      <input 
+        v-model="form1.email"
+        type="email" 
+        id="email" 
+        placeholder="Enter your email"
+        required /><br />
     </div>
-    <div class="gauche1">
+
+    <div class="gauche2">
       <label for="cartv">Numéro Carte Vitale</label>
-      <input type="text" id="cartv" placeholder="ENter your Carte Vitale ID" v-model="form1.cartev" required/><br />
+      <input 
+        v-model="form1.cartev" 
+        type="text" 
+        id="cartv" 
+        maxlength = "30" 
+        placeholder="Enter your Carte Vitale ID" 
+        required/><br />
     </div>
+
     <div class="gauche2">
       <label for="password">Password</label>
       <input
+        v-model="form1.password"
         type="password"
         id="password"
         placeholder="Enter your password"
         required
       /><br />
     </div>
-    <div class="gauche2">
-      <label for="password2">Confirm password</label>
-      <input
-        type="password"
-        id="password2"
-        placeholder="Confirm your password" required
-      /><br />
-    </div>
+
+   
     <button type="submit">Register</button>
   </form>
   
-  <form v-if="currentForm === 'form2'">
+
+
+  <form @submit.prevent= "handleSubmit" v-if="currentForm === 'form2'">
     <h1>Register</h1>
     <div class="gauche1">
-      <label for="name">Username</label>
-      <input type="text" id="username" placeholder="Username" /><br />
+      <label for="surname">Surname</label>
+      <input 
+        v-model="form2.surname" 
+        type="text" 
+        id="username" 
+        placeholder="Enter your Surname" 
+        required/><br />
     </div>
     <div class="droite1">
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" /><br />
-    </div>
-    <div class="gauche2">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-      /><br />
+      <label for="name" >Name</label>
+      <input 
+        v-model="form2.name" 
+        type="text" 
+        id="name" 
+        placeholder="Enter your name" 
+        required/><br />
     </div>
     <div class="droite2">
-      <label for="password2">Confirm password</label>
+      <label for="email">Email</label>
+      <input 
+        v-model="form2.email" 
+        type="email" 
+        id="email" 
+        placeholder="Enter your email"
+        required /><br />
+    </div>
+    <div id="adressnumber">
+      <label for="adressnumber">Numéro lieu d'exercice</label>
       <input
-        type="password"
-        id="password2"
-        placeholder="Confirm your password"
+        v-model="form2.adressnumber"
+        type="number" 
+        id="addressnumber" 
+        placeholder="Enter your adress" 
+        required />
+    </div>
+
+    <div id="adressname">
+      <label for="adressname">Nom rue</label>
+      <input
+        v-model="form2.adressname"
+        type="text" 
+        id="addressname" 
+        placeholder="Enter your adress" 
+        required />
+    </div>
+
+    <div id="adresspostal">
+      <label for="adresspostal">Code postal</label>
+      <input
+        v-model="form2.adresspostal"
+        type="number" 
+        id="addresspostal" 
+        placeholder="Enter your adress" 
+        required />
+    </div>
+
+    <div id="adressville">
+      <label for="adressville">Ville</label>
+      <input
+        v-model="form2.adressville"
+        type="text" 
+        id="addressville" 
+        placeholder="Enter your adress" 
+        required />
+    </div>
+
+    <div id="phone">
+      <label for="phone_number">Numéro téléphone</label>
+      <input 
+        v-name="form2.pnumber"
+        type="number" 
+        id="phone_number" 
+        placeholder="Enter your phone number" 
+        required />
+    </div>
+    <div id="insee">
+      <label for="insee">Numéro INSEE</label>
+      <input 
+        v-name="form2.insee"
+        type="number" 
+        id="insee" 
+        placeholder="Enter your insee number" 
+        required />
+    </div>
+    <div class="gauche2">
+      <label for="rpps">Code RPPS</label>
+      <input
+        v-model="form2.rpps"
+        type="text"
+        id="rpps"
+        maxlength="14"
+        placeholder="Enter your RPPS code"
       /><br />
     </div>
+    
     <button type="submit">Register</button>
   </form>
+
+
+  
+  <form @submit.prevent= "handleSubmit" v-if="currentForm === 'form3'">
+    <h1>Register</h1>
+    <div class="gauche1">
+      <label for="surname">Surname</label>
+      <input 
+        v-model="form3.surname" 
+        type="text" 
+        id="surname" 
+        placeholder="Enter your Surname" 
+        required/><br />
+    </div>
+    <div class="droite1">
+      <label for="name" >Name</label>
+      <input 
+        v-model="form3.name" 
+        type="text" 
+        id="name" 
+        placeholder="Enter your name" 
+        required/><br />
+    </div>
+    <div class="droite2">
+      <label for="email">Email</label>
+      <input 
+        v-model="form3.email" 
+        type="email" 
+        id="email" 
+        placeholder="Enter your email"
+        required /><br />
+    </div>
+    <div id="phone">
+      <label for="phone_number">Numéro téléphone pharmacie</label>
+      <input 
+        v-model="form3.pnumber"
+        type="number" 
+        id="phone_number" 
+        placeholder="Enter your phone number" 
+        required />
+    </div>
+    <div id="adressname">
+      <label for="adressname">Nom pharmacie</label>
+      <input
+        v-model="form3.place_name"
+        type="text" 
+        id="addressname" 
+        placeholder="Enter your place name" 
+        required />
+    </div>
+        <div id="adressnumber">
+      <label for="adressnumber">Numéro lieu d'exercice</label>
+      <input
+        v-model="form3.adressnumber"
+        type="number" 
+        id="addressnumber" 
+        placeholder="Enter your adress" 
+        required />
+    </div>
+
+    <div id="adressname">
+      <label for="adressname">Nom rue</label>
+      <input
+        v-model="form3.adressname"
+        type="text" 
+        id="addressname" 
+        placeholder="Enter your adress" 
+        required />
+    </div>
+
+    <div id="adresspostal">
+      <label for="adresspostal">Code postal</label>
+      <input
+        v-model="form3.adresspostal"
+        type="number" 
+        id="addresspostal" 
+        placeholder="Enter your adress" 
+        required />
+    </div>
+
+    <div id="adressville">
+      <label for="adressville">Ville</label>
+      <input
+        v-model="form3.adressville"
+        type="text" 
+        id="addressville" 
+        placeholder="Enter your adress" 
+        required />
+    </div>
+    <div class="gauche2">
+      <label for="rpps">Code RPPS</label>
+      <input
+        v-model="form3.rpps"
+        type="text"
+        id="rpps"
+        maxlength="14"
+        placeholder="Enter your RPPS code"
+      /><br />
+    </div>
+    
+    <button type="submit">Register</button>
+  </form>
+
+
 </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
       showButtons: true, 
       currentForm: null,
       form1: {
+        surname:'',
         name: '',
         email: '',
         cartev: '',
-        password: ''
+        password: '',
+        password_confirm:''
       },
       form2: {
+        surname:'',
         name: '',
         email: '',
-        password: ''
+        adressnumber:'',
+        adressname:'',
+        adresspostal:'',
+        adressville:'',
+        pnumber:'',
+        insee:'',
+        rpps:''
       },
-      
+      form3: {
+        surname:'',
+        name: '',
+        email: '',
+        pnumber:'',
+        place_name:'',
+        adressnumber:'',
+        adressname:'',
+        adresspostal:'',
+        adressville:'',
+        rpps:''
+      },
       showResults: false,
       formResults: null
     };
   },
   methods: {
+    handleSubmit() {
+      let data = null;
+      if (this.currentForm === 'form1') {
+        data = {
+          firstname: this.form1.surname,
+          name: this.form1.name,
+          email: this.form1.email,
+          password: this.form1.password,
+          carteVitale: this.form1.cartev
+        };
+      } 
+      else if (this.currentForm === 'form2') {
+        data = {
+          firstname: this.form2.surname,
+          name: this.form2.name,
+          email: this.form2.email,
+          addressnumber: this.form2.addressnumber,
+          addressname: this.form2.addressname,
+          addresspostal: this.form2.addresspostal,
+          addressville: this.form2.addressville,
+          pnumber: this.form2.pnumber,
+          insee: this.form2.insee,
+          rpps: this.form2.rpps
+        };
+      } 
+      else if (this.currentForm === 'form3') {
+        data = {
+          firstname: this.form3.surname,
+          name: this.form3.name,
+          email: this.form3.email,
+          pnumber: this.form3.pnumber,
+          place_name: this.form3.place_name,
+          addressnumber: this.form3.addressnumber,
+          addressname: this.form3.addressname,
+          addresspostal: this.form3.addresspostal,
+          addressville: this.form3.addressville,
+          rpps: this.form3.rpps
+        };
+      }
+
+      axios.post('http://localhost:5000/create/user', data)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+
+
+      console.log(data);
+    },
     showForm(form) {
       this.currentForm = form;
       this.showButtons = false; 
     },
     submitForm() {
-      
       let formData = null;
       if (this.currentForm === 'form1') {
         formData = this.form1;
@@ -114,8 +388,11 @@ export default {
       
       this.formResults = JSON.stringify(formData, null, 2);
     }
+    
   }
 };
+
+
 </script>
 
 <style scoped>
