@@ -1,81 +1,152 @@
 <template>
-  <div class="background">
+  <!-- <div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
+  </div> -->
+
+  <div id="body">
+    <header>
+      <form id="patientResearch">
+        <h1>Find your patient</h1>
+        <div>
+          <label>Numéro de carte vitale</label>
+          <div id="ResearchInput">
+            <input id="vitNum" type="text" placeholder="Carte Vitale"/>
+            <button>Submit</button>
+          </div>
+        </div>
+      </form>
+    </header>
+
+    <form id="OrdoForm">
+      <h1>Create a prescription</h1>
+      <div id="DocPart">
+        <h2>Médecin</h2>
+        <div>
+          <div id="DocInfo">
+            <div class="input">
+              <label>Nom</label>
+              <input type="text" placeholder="Nom" />
+            </div>
+            <div class="input">
+              <label>Spécialisation</label>
+              <input type="text" placeholder="Spécialisation"/>
+            </div>
+          </div>
+          <div id="DocAdress">
+            <div class="input">
+              <label>N°</label>
+              <input type="text" placeholder="N°"/>
+            </div>
+            <div class="input">
+              <label>Nom Rue</label>
+              <input type="text" placeholder="Nom Rue"/>
+            </div>
+            <div class="input">
+              <label>Code postal</label>
+              <input type="text" placeholder="Code Postal"/>
+            </div>
+          </div>
+          <label>Ville</label>
+          <input type="text" placeholder="Ville"/>
+          <label>Telephone</label>
+          <input type="text" placeholder="N° Téléphone"/>
+          <label>Code RPPS</label>
+          <input type="text" placeholder="Code RPPS" />
+        </div>
+      </div>
+      <div id="ClientPart">
+        <h2>Patient</h2>
+        <div id="ClientInfo">
+          <div class="input">
+            <label>Nom</label>
+            <input type="text" placeholder="Nom patient"/>
+          </div>
+          <div class="input">
+            <label>Prénom</label>
+            <input type="text" placeholder="Prénom"/>
+          </div>
+          <div class="input">
+            <label>Date de naissance</label>
+            <input type="text" placeholder="JJ/MM/AAAA"/>
+          </div>
+        </div>
+      </div>
+    </form>
+      <!--<div>
+       <div class="gauche">
+        <label>Select a category </label>
+        <input
+          list="category"
+          v-model="product.category"
+          placeholder="Select a category"
+        />
+        <datalist id="category">
+          <option value="Anti-inflammatoires" />
+          <option value="Antibiotiques " />
+          <option value="Cardiologie " />
+          <option value="Dermatologie " />
+          <option value="Autres" />
+        </datalist>
+        <label>Name</label>
+        <input type="text" v-model="product.name" placeholder="Name" />
+      </div>
+      <div class="droite">
+        <label>Product's image link</label>
+        <input
+          type="text"
+          v-model="product.image"
+          placeholder="Product's image link"
+        />
+        <label>Price (in euros)</label>
+        <input
+          type="number"
+          v-model="product.price"
+          placeholder="Price (in euros)"
+        />
+      </div> -->
+      <!-- <button v-on:click="addProduct()" class="submit">Submit</button>
+    </div> -->
+      
   </div>
-  <form>
-    <h1>Add a Product</h1>
-    <div class="gauche">
-      <label>Select a category </label>
-      <input
-        list="category"
-        v-model="product.category"
-        placeholder="Select a category"
-      />
-      <datalist id="category">
-        <option value="Anti-inflammatoires" />
-        <option value="Antibiotiques " />
-        <option value="Cardiologie " />
-        <option value="Dermatologie " />
-        <option value="Autres" />
-      </datalist>
-      <label>Name</label>
-      <input type="text" v-model="product.name" placeholder="Name" />
-    </div>
-    <div class="droite">
-      <label>Product's image link</label>
-      <input
-        type="text"
-        v-model="product.image"
-        placeholder="Product's image link"
-      />
-      <label>Price (in euros)</label>
-      <input
-        type="number"
-        v-model="product.price"
-        placeholder="Price (in euros)"
-      />
-    </div>
-    <button v-on:click="addProduct()" class="submit">Submit</button>
-  </form>
 </template>
 
 <script>
-import axios from "axios";
-export default {
-  name: "AddProduct",
-  data() {
-    return {
-      product: {
-        id: "",
-        category: "",
-        name: "",
-        image: "",
-        price: "",
-        rating: null,
-      },
-    };
-  },
-  methods: {
-    addProduct() {
-      axios.post("http://localhost:3000/products", {
-        category: this.product.category,
-        name: this.product.name,
-        image: this.product.image,
-        price: this.product.price,
-        rating: this.product.rating,
-      });
-      console
-        .log(this.product)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+  import axios from "axios";
+  export default {
+    name: "AddProduct",
+    data() {
+      return {
+        product: {
+          id: "",
+          category: "",
+          name: "",
+          image: "",
+          price: "",
+          rating: null,
+        },
+      };
     },
-  },
-};
+    methods: {
+      addProduct() {
+        axios.post("http://localhost:3000/products", {
+          category: this.product.category,
+          name: this.product.name,
+          image: this.product.image,
+          price: this.product.price,
+          rating: this.product.rating,
+        });
+        console
+          .log(this.product)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+    },
+  };
 </script>
 
 <style scoped>
@@ -106,26 +177,104 @@ body {
   right: -290px;
   bottom: -100px;
 }
-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 550px;
-  width: 800px;
-  background-color: rgba(255, 255, 255, 0.13);
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 55%;
-  left: 50%;
+#OrdoForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   border-radius: 10px;
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
+  background-color: rgba(255, 255, 255, 0.13);
+  padding: 30px;
 }
+
+#DocPart, #ClientPart{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom : 10px;
+  border-bottom: solid black 2px;
+}
+
+#DocInfo, #DocAdress, #ClientInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.input{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#patientResearch{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  background-color: rgba(255, 255, 255, 0.13);
+  padding: 30px;
+  margin-bottom: 20px;
+}
+
+#patientResearch h1 {
+  height:30px;
+}
+
+#ResearchInput{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#ResearchInput button{
+  background-color: #00a38c;
+  color: #ffffff;
+  width: 100px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#ResearchInput button:hover{
+  background-color: #00c7b1;
+}
+
+#body{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: auto;
+}
+
 h1 {
   grid-column-start: 1;
   grid-column-end: 3;
   height:5px;
+}
+
+h2{
+  margin-top: 50px;
 }
 .gauche, .droite {
   display: flex;
@@ -191,4 +340,5 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+
 </style>

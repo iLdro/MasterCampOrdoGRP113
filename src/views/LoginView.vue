@@ -1,21 +1,19 @@
 <template>
-  <div class="background">
+  <!-- <div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
-  </div>
-  <form>
+  </div> -->
+  <form id="Connexion">
     <h1>Login</h1>
-    <div class="gauche">
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" /><br />
-    </div>
-    <div class="droite">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-      /><br />
+    <div id="ConnexionInfo">
+      <div class="input">
+        <label>Email</label>
+        <input type="text" placeholder="Email" />
+      </div>
+      <div class="input">
+        <label>Password</label>
+        <input type="text" placeholder="Password" />
+      </div>
     </div>
     <button type="submit">Login</button>
   </form>
@@ -53,43 +51,42 @@ body {
   right: -290px;
   bottom: -10px;
 }
-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 350px;
-  width: 800px;
-  background-color: rgba(255, 255, 255, 0.13);
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 55%;
-  left: 50%;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
-}
+
 h1 {
   grid-column-start: 1;
   grid-column-end: 3;
   height: 5px;
 }
-.gauche, .droite {
+
+#Connexion{
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  background-color: rgba(255, 255, 255, 0.13);
+  padding: 30px;
 }
-.gauche {
-  grid-column-start: 1;
-  grid-column-end: 2;
+
+#ConnexionInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
 }
-.droite {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
+
+.input{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
+
 form * {
   font-family: "Poppins", sans-serif;
   color: #000000;
