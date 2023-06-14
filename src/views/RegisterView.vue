@@ -3,7 +3,44 @@
     <div class="shape"></div>
     <div class="shape"></div>
   </div>
-  <form>
+
+  <button v-if="showButtons" @click="showForm('form1')">Client</button>
+    <button v-if="showButtons" @click="showForm('form2')">Medecin</button>
+    <button v-if="showButtons" @click="showForm('form3')">Pharmarcie</button>
+  <form v-if="currentForm === 'form1'">
+  <h1>Register</h1>
+    <div class="gauche1">
+      <label for="email">Username</label>
+      <input type="email" id="email" placeholder="Username" /><br />
+    </div>
+    <div class="droite1">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" /><br />
+    </div>
+    <div class="milieu">
+      <label for="email">Numéro Carte Vitale</label>
+      <input type="email" id="email" placeholder="ENter your Carte Vitale ID" /><br />
+    </div>
+    <div class="gauche2">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+      /><br />
+    </div>
+    <div class="droite2">
+      <label for="password2">Confirm password</label>
+      <input
+        type="password"
+        id="password2"
+        placeholder="Confirm your password"
+      /><br />
+    </div>
+    <button type="submit">Register</button>
+  </form>
+  
+  <form v-if="currentForm === 'form2'">
     <h1>Register</h1>
     <div class="gauche1">
       <label for="email">Username</label>
@@ -34,7 +71,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      showButtons: true, // Initially show the buttons
+      currentForm: null
+    };
+  },
+  methods: {
+    showForm(form) {
+      this.currentForm = form;
+      this.showButtons = false; // Hide the buttons after a form is selected
+    }
+  }
+};
 </script>
 
 <style scoped>
