@@ -11,12 +11,12 @@
   <form @submit.prevent= "handleSubmit" v-if="currentForm === 'form1'">
   <h1>Register</h1>
     <div class="gauche1">
-      <label for="name">Surname</label>
+      <label for="name">prénom</label>
       <input 
         v-model="form1.surname" 
         type="text" 
         id="surname" 
-        placeholder="Enter your surname" 
+        placeholder="Entrez votre prénom" 
         required /><br />
     </div>
 
@@ -26,7 +26,7 @@
         v-model="form1.name" 
         type="text" 
         id="name" 
-        placeholder="Enter your name" 
+        placeholder="Entrez votre nom" 
         required/><br />
     </div>
 
@@ -36,7 +36,7 @@
         v-model="form1.email"
         type="email" 
         id="email" 
-        placeholder="Enter your email"
+        placeholder="Entrez votre email"
         required /><br />
     </div>
 
@@ -47,7 +47,7 @@
         type="text" 
         id="cartv" 
         maxlength = "30" 
-        placeholder="Enter your Carte Vitale ID" 
+        placeholder="Entrez votre numéro de Carte Vitale" 
         required/><br />
     </div>
 
@@ -57,7 +57,7 @@
         v-model="form1.password"
         type="password"
         id="password"
-        placeholder="Enter your password"
+        placeholder="Entrez votre mot de passe"
         required
       /><br />
     </div>
@@ -76,7 +76,7 @@
         v-model="form2.surname" 
         type="text" 
         id="username" 
-        placeholder="Enter your Surname" 
+        placeholder="Entrez votre prénom" 
         required/><br />
     </div>
     <div class="droite1">
@@ -85,7 +85,7 @@
         v-model="form2.name" 
         type="text" 
         id="name" 
-        placeholder="Enter your name" 
+        placeholder="Entrez votre nom" 
         required/><br />
     </div>
     <div class="droite2">
@@ -94,7 +94,7 @@
         v-model="form2.email" 
         type="email" 
         id="email" 
-        placeholder="Enter your email"
+        placeholder="Entrez votre email"
         required /><br />
     </div>
     <div id="adressnumber">
@@ -103,7 +103,7 @@
         v-model="form2.adressnumber"
         type="number" 
         id="addressnumber" 
-        placeholder="Enter your adress" 
+        placeholder="Entrez votre numéro d'adresse" 
         required />
     </div>
 
@@ -113,7 +113,7 @@
         v-model="form2.adressname"
         type="text" 
         id="addressname" 
-        placeholder="Enter your adress" 
+        placeholder="Entrez votre nom de rue" 
         required />
     </div>
 
@@ -123,7 +123,7 @@
         v-model="form2.adresspostal"
         type="number" 
         id="addresspostal" 
-        placeholder="Enter your adress" 
+        placeholder="Entrez votre code postal" 
         required />
     </div>
 
@@ -133,7 +133,7 @@
         v-model="form2.adressville"
         type="text" 
         id="addressville" 
-        placeholder="Enter your adress" 
+        placeholder="Entrez votre ville" 
         required />
     </div>
 
@@ -143,7 +143,7 @@
         v-name="form2.pnumber"
         type="number" 
         id="phone_number" 
-        placeholder="Enter your phone number" 
+        placeholder="Entrez votre numéro de téléphone" 
         required />
     </div>
     <div id="insee">
@@ -152,7 +152,7 @@
         v-name="form2.insee"
         type="number" 
         id="insee" 
-        placeholder="Enter your insee number" 
+        placeholder="Entrez votre numéro insee" 
         required />
     </div>
     <div class="gauche2">
@@ -162,7 +162,7 @@
         type="text"
         id="rpps"
         maxlength="14"
-        placeholder="Enter your RPPS code"
+        placeholder="Entrez votre code RPPS"
       /><br />
     </div>
     
@@ -174,21 +174,21 @@
   <form @submit.prevent= "handleSubmit" v-if="currentForm === 'form3'">
     <h1>Register</h1>
     <div class="gauche1">
-      <label for="surname">Surname</label>
+      <label for="surname">Prénom</label>
       <input 
         v-model="form3.surname" 
         type="text" 
         id="surname" 
-        placeholder="Enter your Surname" 
+        placeholder="Entrez votre prénom" 
         required/><br />
     </div>
     <div class="droite1">
-      <label for="name" >Name</label>
+      <label for="name" >Nom</label>
       <input 
         v-model="form3.name" 
         type="text" 
         id="name" 
-        placeholder="Enter your name" 
+        placeholder="Entrez votre name" 
         required/><br />
     </div>
     <div class="droite2">
@@ -197,7 +197,7 @@
         v-model="form3.email" 
         type="email" 
         id="email" 
-        placeholder="Enter your email"
+        placeholder="Entrez votre email"
         required /><br />
     </div>
     <div id="phone">
@@ -206,7 +206,7 @@
         v-model="form3.pnumber"
         type="number" 
         id="phone_number" 
-        placeholder="Enter your phone number" 
+        placeholder="Entrez votre numéro de téléphone" 
         required />
     </div>
     <div id="adressname">
@@ -215,16 +215,16 @@
         v-model="form3.place_name"
         type="text" 
         id="addressname" 
-        placeholder="Enter your place name" 
+        placeholder="Entrez le nom de la pharmacie" 
         required />
     </div>
         <div id="adressnumber">
-      <label for="adressnumber">Numéro lieu d'exercice</label>
+      <label for="adressnumber">Numéro d'adresse</label>
       <input
         v-model="form3.adressnumber"
         type="number" 
         id="addressnumber" 
-        placeholder="Enter your adress" 
+        placeholder="Entrez votre numéro d'adresse" 
         required />
     </div>
 
@@ -234,7 +234,7 @@
         v-model="form3.adressname"
         type="text" 
         id="addressname" 
-        placeholder="Enter your adress" 
+        placeholder="Entrez votre rue" 
         required />
     </div>
 
@@ -244,7 +244,7 @@
         v-model="form3.adresspostal"
         type="number" 
         id="addresspostal" 
-        placeholder="Enter your adress" 
+        placeholder="Entrez votre code postal" 
         required />
     </div>
 
@@ -254,7 +254,7 @@
         v-model="form3.adressville"
         type="text" 
         id="addressville" 
-        placeholder="Enter your adress" 
+        placeholder="Entrez votre ville" 
         required />
     </div>
     <div class="gauche2">
@@ -264,7 +264,7 @@
         type="text"
         id="rpps"
         maxlength="14"
-        placeholder="Enter your RPPS code"
+        placeholder="Entrez votre code RPPS"
       /><br />
     </div>
     
@@ -319,7 +319,7 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       let data = null;
       if (this.currentForm === 'form1') {
         data = {
@@ -332,30 +332,30 @@ export default {
       } 
       else if (this.currentForm === 'form2') {
         data = {
-          firstname: this.form2.surname,
           name: this.form2.name,
+          firstname: this.form2.surname,
+          numberStreet: this.form2.addressnumber,
+          street: this.form2.addressname,
+          city : this.form2.addressville,
+          postalCode: this.form2.addresspostal,
+          phoneNumber: this.form2.pnumber,
           email: this.form2.email,
-          addressnumber: this.form2.addressnumber,
-          addressname: this.form2.addressname,
-          addresspostal: this.form2.addresspostal,
-          addressville: this.form2.addressville,
-          pnumber: this.form2.pnumber,
-          insee: this.form2.insee,
-          rpps: this.form2.rpps
+          profINSEE: this.form2.insee,
+          RPPS: this.form2.rpps
         };
       } 
       else if (this.currentForm === 'form3') {
         data = {
-          firstname: this.form3.surname,
           name: this.form3.name,
+          firstname: this.form3.surname,
           email: this.form3.email,
-          pnumber: this.form3.pnumber,
-          place_name: this.form3.place_name,
-          addressnumber: this.form3.addressnumber,
-          addressname: this.form3.addressname,
-          addresspostal: this.form3.addresspostal,
-          addressville: this.form3.addressville,
-          rpps: this.form3.rpps
+          numberStreet: this.form3.addressnumber,
+          street: this.form3.addressname,
+          city : this.form3.addressville,
+          postalCode: this.form3.addresspostal,
+          phamarcieName : this.form3.place_name,
+          phoneNumber: this.form3.pnumber,
+          RPPS: this.form3.rpps
         };
       }
 
@@ -368,7 +368,7 @@ export default {
         });
 
 
-
+      
       console.log(data);
     },
     showForm(form) {

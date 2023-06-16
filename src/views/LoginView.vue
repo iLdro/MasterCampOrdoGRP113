@@ -3,16 +3,16 @@
     <div class="shape"></div>
     <div class="shape"></div>
   </div> -->
-  <form id="Connexion">
+  <form @submit.prevent="handleSubmit" id="Connexion">
     <h1>Login</h1>
     <div id="ConnexionInfo">
       <div class="input">
         <label>Email</label>
-        <input type="text" placeholder="Email" />
+        <input type="text" v-model="email" placeholder="Email" />
       </div>
       <div class="input">
         <label>Password</label>
-        <input type="text" placeholder="Password" />
+        <input type="text" v-model="password" placeholder="Password" />
       </div>
     </div>
     <button type="submit">Login</button>
@@ -20,7 +20,33 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios'
+export default {
+  
+  data(){
+    return{
+      email:'',
+      password:''
+      }
+    },
+    methods: {
+  handleSubmit() {
+    axios
+      .post("http://localhost:5000/login/user", {
+        email: this.email,
+        password: this.password,
+      })
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("token", res.data.token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+},
+
+};
 </script>
 
 <style scoped>
