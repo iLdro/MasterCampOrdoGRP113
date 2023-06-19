@@ -1,10 +1,10 @@
 <template>
   <div>
     <header>
-      You currently have {{ cart.length }} items in your cart for a total of {{ sum }} €
+      Vous avez {{ cart.length }} ordonnances
       <br />
-      <button v-on:click="navigateTo('products')">View products</button> |
-      <button v-on:click="navigateTo('cart')">View Cart</button>
+      <button v-on:click="navigateTo('products')">Listes d'ordonnances</button> |
+      <button v-on:click="navigateTo('cart')">Filtre liste</button>
     </header>
     <br />
     <div v-if="page === 'cart'">
