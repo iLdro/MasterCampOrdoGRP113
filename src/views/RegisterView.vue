@@ -1,9 +1,6 @@
 
 <template>
-  <!--<div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-  </div>-->
+ 
 <div>
   <button v-if="showButtons" @click="showForm('form1')">Client</button>
     <button v-if="showButtons" @click="showForm('form2')">Medecin</button>
@@ -140,7 +137,7 @@
     <div id="phone">
       <label for="phone_number">Numéro téléphone</label>
       <input 
-        v-name="form2.pnumber"
+        v-model="form2.pnumber"
         type="number" 
         id="phone_number" 
         placeholder="Entrez votre numéro de téléphone" 
@@ -149,7 +146,7 @@
     <div id="insee">
       <label for="insee">Numéro INSEE</label>
       <input 
-        v-name="form2.insee"
+        v-model="form2.insee"
         type="number" 
         id="insee" 
         placeholder="Entrez votre numéro insee" 
@@ -159,9 +156,9 @@
       <label for="rpps">Code RPPS</label>
       <input
         v-model="form2.rpps"
-        type="text"
+        type="number"
         id="rpps"
-        maxlength="14"
+       
         placeholder="Entrez votre code RPPS"
       /><br />
     </div>
@@ -294,13 +291,13 @@ export default {
         surname:'',
         name: '',
         email: '',
-        adressnumber:'',
+        adressnumber:0,
         adressname:'',
-        adresspostal:'',
+        adresspostal:0,
         adressville:'',
-        pnumber:'',
-        insee:'',
-        rpps:''
+        pnumber:0,
+        insee:0,
+        rpps:0
       },
       form3: {
         surname:'',
@@ -329,21 +326,41 @@ export default {
           password: this.form1.password,
           carteVitale: this.form1.cartev
         };
+        axios.post('http://localhost:5000/create/user', data)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+        console.log(data);
       } 
       else if (this.currentForm === 'form2') {
         data = {
-          name: this.form2.name,
-          firstname: this.form2.surname,
-          numberStreet: this.form2.addressnumber,
-          street: this.form2.addressname,
-          city : this.form2.addressville,
-          postalCode: this.form2.addresspostal,
-          phoneNumber: this.form2.pnumber,
-          email: this.form2.email,
-          profINSEE: this.form2.insee,
-          RPPS: this.form2.rpps
-        };
-      } 
+        name: String(this.form2.name),
+        firstname: String(this.form2.surname),
+        numberStreet: String(this.form2.adressnumber),
+        street: String(this.form2.adressname),
+        city : String(this.form2.adressville),
+        postalCode: String(this.form2.adresspostal),
+        phoneNumber: String(this.form2.pnumber),
+        email: String(this.form2.email),
+        profilINSEE: String(this.form2.insee),
+        RPPS: String(this.form2.rpps),
+        signature: this.form2.name + ' ' + this.form2.surname
+      }
+
+        axios.post('http://localhost:5000/create/med', data)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+        console.log(data);
+      }
+      
+
       else if (this.currentForm === 'form3') {
         data = {
           name: this.form3.name,
@@ -357,19 +374,20 @@ export default {
           phoneNumber: this.form3.pnumber,
           RPPS: this.form3.rpps
         };
-      }
-
-      axios.post('http://localhost:5000/create/user', data)
+        axios.post('http://localhost:5000/create/pharmacien', data)
         .then(res => {
           console.log(res);
         })
         .catch(err => {
           console.log(err);
         });
+        console.log(data);
+      }
+
 
 
       
-      console.log(data);
+      
     },
     showForm(form) {
       this.currentForm = form;
