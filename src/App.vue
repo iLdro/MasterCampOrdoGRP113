@@ -14,7 +14,7 @@
 
     <router-link to="/register">Register</router-link> |
     <router-link to="/login">Login</router-link> |
-    <button id="logout">Log out</button>
+    <button id="logout" @click="handleClick" >Log out</button>
   </nav>
   <router-view />
   
@@ -23,6 +23,14 @@
 <script>
 export default {
   name: "App",
+  methods: {
+    handleClick() {
+      console.log("logout")
+      localStorage.removeItem("token");
+
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
 

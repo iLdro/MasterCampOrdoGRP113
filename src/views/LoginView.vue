@@ -1,18 +1,16 @@
+
 <template>
-  <!-- <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-  </div> -->
+  
   <form @submit.prevent="handleSubmit" id="Connexion">
     <h1>Login</h1>
     <div id="ConnexionInfo">
       <div class="input">
-        <label>Email</label>
+        <label>Email</label>  
         <input type="text" v-model="email" placeholder="Email" />
       </div>
       <div class="input">
         <label>Password</label>
-        <input type="text" v-model="password" placeholder="Password" />
+        <input type="password" v-model="password" placeholder="Password" />
       </div>
     </div>
     <button type="submit">Login</button>
@@ -20,7 +18,10 @@
 </template>
 
 <script>
+
 import axios from 'axios'
+
+import jwtDecode from 'jwt-decode';
 export default {
   
   data(){
@@ -30,23 +31,31 @@ export default {
       }
     },
     methods: {
-  handleSubmit() {
-    axios
-      .post("http://localhost:5000/login/user", {
-        email: this.email,
-        password: this.password,
-      })
-      .then((res) => {
-        console.log(res);
-        localStorage.setItem("token", res.data.token);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
-},
+    
+    
 
-};
+    handleSubmit() {
+
+      axios
+        .post("http://localhost:5000/login/user", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((res) => {
+          console.log(res.data);
+          const decodedToken = jwtDecode(res.data);
+          console.log(decodedToken);
+          localStorage.setItem("token", decodedToken);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+        }
+
+      },
+
+      };
 </script>
 
 <style scoped>
