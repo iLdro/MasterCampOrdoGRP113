@@ -320,11 +320,11 @@ export default {
       let data = null;
       if (this.currentForm === 'form1') {
         data = {
-          firstname: this.form1.surname,
-          name: this.form1.name,
-          email: this.form1.email,
-          password: this.form1.password,
-          carteVitale: this.form1.cartev
+          firstname: String(this.form1.surname),
+          name: String(this.form1.name),
+          email: String(this.form1.email),
+          password: String(this.form1.password),
+          carteVitale: String(this.form1.cartev)
         };
         axios.post('http://localhost:5000/create/user', data)
         .then(res => {
@@ -332,8 +332,9 @@ export default {
         })
         .catch(err => {
           console.log(err);
+          console.log(data);
         });
-        console.log(data);
+        
       } 
       else if (this.currentForm === 'form2') {
         data = {

@@ -9,14 +9,14 @@
     <div id="ConnexionInfo">
       <div class="input">
         <label>Email</label>
-        <input type="text" placeholder="Email" />
+        <input type="text" v-model="email" placeholder="Email" />
       </div>
       <div class="input">
         <label>Password</label>
-        <input type="text" placeholder="Password" />
+        <input type="text" v-model="password" placeholder="Password" />
       </div>
     </div>
-    <button type="submit">Login</button>
+    <button type="submit" @click="handleClick">Login</button>
   </form>
 </template>
 
@@ -37,29 +37,32 @@ export default {
     
     
 
-    handleSubmit() {
+      handleClick() {
 
-      axios
-        .post("http://localhost:5000/login/user", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((res) => {
-          console.log(res.data);
-          const decodedToken = jwtDecode(res.data);
-          console.log(decodedToken);
-          localStorage.setItem("token", decodedToken);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+     
 
-        }
+        axios
+          .post("http://localhost:5000/login/user", {
+            email: String(this.email),
+            password: String(this.password),
+          })
+          .then((res) => {
+            console.log(res.data);
+            const decodedToken = jwtDecode(res.data);
+            console.log(decodedToken);
+            localStorage.setItem("token", decodedToken);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+          }
 
       },
 
       };
 </script>
+
 
 <style scoped>
 body {
