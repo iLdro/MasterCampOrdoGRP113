@@ -12,7 +12,7 @@
         <div id="numRPPS">RPPS : Ps.RPPS</div>
       </div>
       <div id="buttons">
-        <button onclick="ValidatePS()">Valider</button>
+        <button onclick="ValidatePS({{Ps._id}})">Valider</button>
         <button>Refuser</button>
       </div>
     </div>
@@ -50,7 +50,12 @@ export default {
       const PharmaList = await axios.get('http://localhost:8080/admin/pendingPharmacien')
       this.PSList += PharmaList.data
     },
-    
+    async ValidatePs(_id){
+      const PsId = _id;
+      const response = await axios.post('http://localhost:8080/admin/validatePs', {PsId})
+      console.log(response)
+    }
+
   },
   async mounted(){
     await this.fetchMed()
