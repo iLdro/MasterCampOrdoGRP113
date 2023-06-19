@@ -258,9 +258,9 @@
       <label for="rpps">Code RPPS</label>
       <input
         v-model="form3.rpps"
-        type="text"
+        type="number"
         id="rpps"
-        maxlength="14"
+       
         placeholder="Entrez votre code RPPS"
       /><br />
     </div>
@@ -345,7 +345,7 @@ export default {
         postalCode: String(this.form2.adresspostal),
         phoneNumber: String(this.form2.pnumber),
         email: String(this.form2.email),
-        profilINSEE: String(this.form2.insee),
+        profINSEE: String(this.form2.insee),
         RPPS: String(this.form2.rpps),
         signature: this.form2.name + ' ' + this.form2.surname
       }
@@ -363,16 +363,16 @@ export default {
 
       else if (this.currentForm === 'form3') {
         data = {
-          name: this.form3.name,
-          firstname: this.form3.surname,
-          email: this.form3.email,
-          numberStreet: this.form3.addressnumber,
-          street: this.form3.addressname,
-          city : this.form3.addressville,
-          postalCode: this.form3.addresspostal,
-          phamarcieName : this.form3.place_name,
-          phoneNumber: this.form3.pnumber,
-          RPPS: this.form3.rpps
+          name:  String(this.form3.name),
+          firstname:  String(this.form3.surname),
+          email:  String(this.form3.email),
+          numberStreet:  String(this.form3.adressnumber),
+          street:  String(this.form3.adressname),
+          city :  String(this.form3.adressville),
+          postalCode:  String(this.form3.adresspostal),
+          phamarcieName :  String(this.form3.place_name),
+          phoneNumber:  String(this.form3.pnumber),
+          RPPS:  String(this.form3.rpps)
         };
         axios.post('http://localhost:5000/create/pharmacien', data)
         .then(res => {
