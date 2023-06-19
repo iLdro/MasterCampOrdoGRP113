@@ -1,16 +1,19 @@
 
 <template>
-  
-  <form @submit.prevent="handleSubmit" id="Connexion">
+  <!-- <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div> -->
+  <form id="Connexion">
     <h1>Login</h1>
     <div id="ConnexionInfo">
       <div class="input">
-        <label>Email</label>  
-        <input type="text" v-model="email" placeholder="Email" />
+        <label>Email</label>
+        <input type="text" placeholder="Email" />
       </div>
       <div class="input">
         <label>Password</label>
-        <input type="password" v-model="password" placeholder="Password" />
+        <input type="text" placeholder="Password" />
       </div>
     </div>
     <button type="submit">Login</button>
@@ -88,9 +91,17 @@ body {
 }
 
 h1 {
-  grid-column-start: 1;
-  grid-column-end: 3;
   height: 5px;
+}
+
+#body{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: auto;
 }
 
 #Connexion{
@@ -104,6 +115,7 @@ h1 {
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   background-color: rgba(255, 255, 255, 0.13);
   padding: 30px;
+  margin-bottom: 20px;
 }
 
 #ConnexionInfo{
@@ -111,7 +123,6 @@ h1 {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
   margin-bottom: 10px;
 }
 
@@ -157,15 +168,10 @@ input {
   color: #000000;
 }
 button {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: 4;
   margin-top: 50px;
-  width: 100%;
   background-color: #000000;
   color: #ffffff;
-  padding: 15px 0;
+  padding: 15px;
   font-size: 18px;
   font-weight: 600;
   border-radius: 5px;

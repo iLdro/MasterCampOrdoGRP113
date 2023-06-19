@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import ProductList from "@/views/ProductList.vue";
-import ProductDetails from "@/views/ProductDetails.vue";
+// import ProductList from "@/views/ProductList.vue";
+// import ProductDetails from "@/views/ProductDetails.vue";
 import DoctorView from "@/views/DoctorView.vue";
 
 const routes = [
@@ -37,14 +37,15 @@ const routes = [
   {
     path: "/Product",
     name: "ProductList",
-    component: ProductList,
+    component: () =>
+      import(/* webpackChunkName: "guest" */ "../views/AdminView.vue"),
   },
-  {
-    path: "/products/:id",
-    name: "ProductDetails",
-    props: true,
-    component: ProductDetails,
-  },
+  // {
+  //   path: "/products/:id",
+  //   name: "ProductDetails",
+  //   props: true,
+  //   component: ProductDetails,
+  // },
   {
     path: "/doctor",
     name: "DoctorVieew",
