@@ -1,9 +1,5 @@
 
 <template>
-  <!-- <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-  </div> -->
   <form id="Connexion">
     <h1>Login</h1>
     <div id="ConnexionInfo">
@@ -45,10 +41,10 @@ export default {
             const decodedToken = jwtDecode(res.data);
             console.log(decodedToken);
             localStorage.setItem("token", decodedToken);
-            //const userType = decodedToken.userType;
+            const userType = decodedToken.userType;
             
-      
-           
+            this.$emit('login', userType);
+
           })
           .catch((err) => {
             console.log(err);

@@ -14,9 +14,11 @@
 
     <router-link v-if="!isLoggedIn" to="/register">Register</router-link> 
     <router-link v-if="!isLoggedIn" to="/login">Login</router-link> 
+    
+
     <button v-if="isLoggedIn" id="logout" @click="handleClick" >Log out</button>
   </nav>
-  <router-view />
+  <router-view @login="handleLogin" />
   
 </template>
 
@@ -29,14 +31,48 @@ export default {
     handleClick() {
       console.log("logout")
       localStorage.removeItem("token");
+      this.isLoggedIn = false;
+      console.log(this.isLoggedIn)
+      this.userType = null;
+      console.log(this.userType)
       
-     
-   
-      
-      this.$router.push("/login");
     },
+    
+    handleLogin(userType) {
+      //console.log("handleLogin")
+      this.userType = userType;
+      //console.log(this.userType)
+      //console.log(userType)
+      this.isLoggedIn = true;
+      //console.log(this.isLoggedIn)
+      this.$emit('login');
+      if (this.userType === 0) {
+        this.$router.push('/Product');
+      }
+      else if (userType === 1) {
+        this.$router.push('/client');
+      }
+      else if (userType === 2) {
+        this.$router.push('/doctor');
+      }
+      else if (this.userType === 3) {
+        this.$router.push('/pharma');
+      }
+    }
+        
   },
-};
+      data() {
+        return {
+          isLoggedIn: false,
+          userType: null,
+        };
+      },
+    
+  };
+
+
+  
+
 
 </script>
 
