@@ -7,13 +7,13 @@
   </header>
   <nav>
     <router-link to="/">Home</router-link> 
-    <router-link v-if="userType === '0'" to="/Product">Admin Page</router-link> 
-    <router-link v-if="userType === '1'" to="/client">Client</router-link> 
-    <router-link v-if="userType === '2'" to="/doctor">Medecin</router-link> 
-    <router-link v-if="userType === '3'" to="/pharma">Pharmacie</router-link> 
+    <router-link v-if="userType === 0" to="/Product">Admin Page</router-link>
+    <router-link v-if="userType === 1" to="/client">Client</router-link>
+    <router-link v-if="userType === 2" to="/doctor">Medecin</router-link>
+    <router-link v-if="userType === 3" to="/pharma">Pharmacie</router-link>
 
-    <router-link v-if="!isLoggedIn" to="/register">Register</router-link> 
-    <router-link v-if="!isLoggedIn" to="/login">Login</router-link> 
+    <router-link v-if="!isLoggedIn" to="/register">Register</router-link>
+    <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
     
 
     <button v-if="isLoggedIn" id="logout" @click="handleClick" >Log out</button>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+
 export default {
   
   name: "App",
@@ -32,19 +33,19 @@ export default {
       console.log("logout")
       localStorage.removeItem("token");
       this.isLoggedIn = false;
-      console.log(this.isLoggedIn)
-      this.userType = null;
-      console.log(this.userType)
       
+      this.userType = null;
+      
+      localStorage.removeItem("isLoggedIn");
+      this.$router.push('/login');
     },
     
     handleLogin(userType) {
-      //console.log("handleLogin")
       this.userType = userType;
-      //console.log(this.userType)
-      //console.log(userType)
       this.isLoggedIn = true;
-      //console.log(this.isLoggedIn)
+
+      localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("userType", userType);
       this.$emit('login');
       if (this.userType === 0) {
         this.$router.push('/Product');
@@ -59,7 +60,7 @@ export default {
         this.$router.push('/pharma');
       }
     }
-        
+
   },
       data() {
         return {
@@ -67,7 +68,16 @@ export default {
           userType: null,
         };
       },
-    
+      created() {
+          this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+          if (this.isLoggedIn) {
+            const userType = Number(localStorage.getItem("userType"));
+            this.handleLogin(userType);
+          } else {
+            this.$router.push('/login');
+          }
+      }
+
   };
 
 

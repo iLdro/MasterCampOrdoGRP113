@@ -62,4 +62,34 @@ const router = createRouter({
 });
 
 
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn")==="true";
+  const userType = Number(localStorage.getItem("userType")) ;
+
+  const authRequiredRoutes = ["/Product", "/client", "/doctor", "/pharma"];
+
+  if(authRequiredRoutes.includes(to.path)) {
+    if(isLoggedIn) {
+      if(to.path === "/Product" && userType === 0) {
+        next();
+
+      } else if(to.path === "/client" && userType === 1) {
+        next();
+      } else if(to.path === "/doctor" && userType === 2) {
+        next();
+      } else if(to.path === "/pharma" && userType === 3) {
+
+        next();
+      } else {
+        next("/");
+      }
+    } else {
+        next("/");
+      }
+  } else {  
+    next();
+  }
+  }
+);
+
 export default router;
