@@ -34,13 +34,7 @@ export default {
       }
     },
     methods: {
-    
-    
-
       handleClick() {
-
-     
-
         axios
           .post("http://localhost:5000/login/user", {
             email: String(this.email),
@@ -51,14 +45,16 @@ export default {
             const decodedToken = jwtDecode(res.data);
             console.log(decodedToken);
             localStorage.setItem("token", decodedToken);
+            //const userType = decodedToken.userType;
+            
+      
+           
           })
           .catch((err) => {
             console.log(err);
           });
-
-          }
-
       },
+    },
 
       };
 </script>

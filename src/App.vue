@@ -6,15 +6,15 @@
     </div>
   </header>
   <nav>
-    |<router-link to="/">Home</router-link> |
-    <router-link to="/Product">Admin Page</router-link> |
-    <router-link to="/doctor">Medecin</router-link> |
-    <router-link to="/client">Client</router-link> |
-    <router-link to="/pharma">Pharmacie</router-link> |
+    <router-link to="/">Home</router-link> 
+    <router-link v-if="userType === '0'" to="/Product">Admin Page</router-link> 
+    <router-link v-if="userType === '1'" to="/client">Client</router-link> 
+    <router-link v-if="userType === '2'" to="/doctor">Medecin</router-link> 
+    <router-link v-if="userType === '3'" to="/pharma">Pharmacie</router-link> 
 
-    <router-link to="/register">Register</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <button id="logout" @click="handleClick" >Log out</button>
+    <router-link v-if="!isLoggedIn" to="/register">Register</router-link> 
+    <router-link v-if="!isLoggedIn" to="/login">Login</router-link> 
+    <button v-if="isLoggedIn" id="logout" @click="handleClick" >Log out</button>
   </nav>
   <router-view />
   
@@ -22,16 +22,22 @@
 
 <script>
 export default {
+  
   name: "App",
+  
   methods: {
     handleClick() {
       console.log("logout")
       localStorage.removeItem("token");
-
+      
+     
+   
+      
       this.$router.push("/login");
     },
   },
 };
+
 </script>
 
 <style scoped></style>
