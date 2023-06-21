@@ -11,9 +11,13 @@
         <label>Password</label>
         <input type="text" v-model="password" placeholder="Password" />
       </div>
+      
     </div>
-    <button type="submit" @click="handleClick">Login</button>
+    <a @click="handleClick">mot de passe oublié?</a>
+    <button type="submit" @click="handleSubmit">Login</button>
+    
   </form>
+
 </template>
 
 <script>
@@ -30,7 +34,7 @@ export default {
       }
     },
     methods: {
-      handleClick() {
+      handleSubmit() {
         axios
           .post("http://localhost:5000/login/user", {
             email: String(this.email),
@@ -50,6 +54,9 @@ export default {
             console.log(err);
           });
       },
+      handleClick(){
+        this.$router.push('/recupmdp');
+      }
     },
 
       };

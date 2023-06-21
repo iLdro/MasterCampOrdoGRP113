@@ -265,6 +265,7 @@
       /><br />
     </div>
     
+    
     <button type="submit">Register</button>
   </form>
 
@@ -390,23 +391,7 @@ export default {
       
       
     },
-    showForm(form) {
-      this.currentForm = form;
-      this.showButtons = false; 
-    },
-    submitForm() {
-      let formData = null;
-      if (this.currentForm === 'form1') {
-        formData = this.form1;
-      } else if (this.currentForm === 'form2') {
-        formData = this.form2;
-      } else if (this.currentForm === 'form3') {
-        formData = this.form3;
-      }
-
-      
-      this.formResults = JSON.stringify(formData, null, 2);
-    }
+  
     
   }
 };

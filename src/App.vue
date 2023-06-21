@@ -11,14 +11,13 @@
     <router-link v-if="userType === 1" to="/client">Client</router-link>
     <router-link v-if="userType === 2" to="/doctor">Medecin</router-link>
     <router-link v-if="userType === 3" to="/pharma">Pharmacie</router-link>
-
+    
     <router-link v-if="!isLoggedIn" to="/register">Register</router-link>
     <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
-    
-
+    <router-link v-if="isLoggedIn" to="/info">informations</router-link>
     <button v-if="isLoggedIn" id="logout" @click="handleClick" >Log out</button>
   </nav>
-  <router-view @login="handleLogin" />
+  <router-view @login="handleLogin"/>
   
 </template>
 
