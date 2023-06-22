@@ -11,8 +11,8 @@
         <div>
           <label>Numéro de carte vitale</label>
           <div id="ResearchInput">
-            <input id="vitNum" type="text" placeholder="Carte Vitale"/>
-            <button>Submit</button>
+            <input id="vitNum" type="text" placeholder="Carte Vitale" v-model="Client.vital_card"/>
+            <button @click=FetchPatient(Client.vital_card)>Submit</button>
           </div>
         </div>
       </form>
@@ -161,7 +161,8 @@
         Client:{
           nom_client:"",
           prenom_client:"",
-          date_naissance:""
+          date_naissance:"", 
+          vital_card:""
         },
         Medicament:{
           nom_medicament:"",
@@ -182,6 +183,11 @@
         let pos = medic
         this.MedicListCount.splice(pos, 1)
         this.CountMed--
+      },
+      async FetchPatient(patientSearch){
+        const response = await axios.get("http://localhost:5000/" + patientSearch)
+        console.log(response.data)
+
       },
       addProduct() {
         axios.post("http://localhost:3000/products", {
