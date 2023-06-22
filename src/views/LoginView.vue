@@ -48,11 +48,16 @@ export default {
         .then((res) => {
           console.log(res.data);
           const decodedToken = jwtDecode(res.data);
-          console.log(decodedToken);
+          console.log("TOKEN DECODE : "+ decodedToken);
           localStorage.setItem("token", decodedToken);
           const userType = decodedToken.userType;
-
+          const userId = decodedToken.id;
+          localStorage.setItem('id', userId);
           this.$emit('login', userType);
+          this.$emit('id', userId);
+          console.log('emitted id event with value:', userId);
+          console.log("VOICI LID DE LOGIN : "+ userId);
+
           this.message = 'Logged in successfully. Redirecting..';
         })
         .catch((err) => {

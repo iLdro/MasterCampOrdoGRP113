@@ -22,7 +22,7 @@ export default {
     },
     methods: {
         handleSubmit(){
-            axios.post('http://localhost:5000/create/pharmacien', {
+            axios.post('http://localhost:5000/user/resetPassword', {
                 mail: this.email
             })
             .then(res => {

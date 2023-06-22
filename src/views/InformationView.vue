@@ -1,65 +1,61 @@
 <template>
-    
-    <h1>Informations personnelles</h1>
-    <form @submit.prevent= "handleSubmit">
-        <div>
-            <label>Ancien mot de passe</label>
-            <input v-model="ancien" type="text" required>
-        </div>
-
-        <div>
-            <label>Nouveau mot de passe</label>
-            <input v-model="nouveau" type="password" required>
-        </div>
-        <div>
-            <label>Nouveau mot de passe</label>
-            <input v-model="nouveau2" type="password" required>
-        </div>
-    
-
-        <button type="submit">Réinitialiser</button>
-    </form>
+  <h1>Informations personnelles</h1>
+  <form @submit.prevent="handleId">
+    <div>
+      <label>Ancien mot de passe</label>
+      <input v-model="ancien" type="text" required>
+    </div>
+    <div>
+      <label>Nouveau mot de passe</label>
+      <input v-model="nouveau" type="password" required>
+    </div>
+    <div>
+      <label>Confirmer nouveau mot de passe</label>
+      <input v-model="nouveau2" type="password" required>
+    </div>
+    <button type="submit">Réinitialiser</button>
+  </form>
 </template>
 
 <script>
-import axios from 'axios'
-import bcryptjs from 'bcryptjs';
-export default{
-    data(){
-        return {
-            ancien:'',
-            nouveau:'',
-            nouveau2:'',
-        };
-    },
-    methods: {
-        async handleSubmit(){
-            if (this.nouveau === this.nouveau2){
-                const token = localStorage.getItem('token');
-                const hashedPassword = bcryptjs(this.nouveau)
-                axios.post('http://localhost:5000/create/pharmacien', {
-                
-                    ancien: this.ancien,
-                    nouveau: hashedPassword,
-    
-                    token,
-                })
-                .then(res => {
-                    
-                    console.log(res);
-                })
-                .catch(err => {
-                    console.log("bien joué")
-                    console.log(err);
-                });
-            }
-            else{
-                console.log("T'a merdé")
-            }
-        },
-    },
-};
+import axios from 'axios';
 
+export default {
+  data() {
+    return {
+      ancien: '',
+      nouveau: '',
+      nouveau2: '',
+    };
+  },
+  methods: {
+    async handleId() {
+      const userId = localStorage.getItem('id'); // Retrieve userId from localStorage
+      console.log('VOICI ID', userId);
+
+      if (this.nouveau === this.nouveau2) {
+        console.log(this.ancien);
+        console.log(this.nouveau);
+
+        axios
+          .post('http://localhost:5000/user/changePassword', {
+            _id: userId,
+            password: String(this.ancien),
+            newpassword: String(this.nouveau),
+          })
+          .then((res) => {
+            console.log('bien joué');
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        console.log("T'a merdé");
+      }
+    },
+  },
+};
 
 
 </script>

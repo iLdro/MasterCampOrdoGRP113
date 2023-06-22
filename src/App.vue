@@ -17,7 +17,9 @@
     <router-link v-if="isLoggedIn" to="/info">informations</router-link>
     <button v-if="isLoggedIn" id="logout" @click="handleClick" >Log out</button>
   </nav>
-  <router-view @login="handleLogin"/>
+  <router-view @login="handleLogin" @id="handleId" />
+
+
   
 </template>
 
@@ -28,6 +30,7 @@ export default {
   name: "App",
   
   methods: {
+    
     handleClick() {
       console.log("logout")
       localStorage.removeItem("token");
@@ -37,6 +40,8 @@ export default {
       
       localStorage.removeItem("isLoggedIn");
       this.$router.push('/login');
+      localStorage.removeItem("userType");
+      localStorage.removeItem("id");
     },
     
     handleLogin(userType) {

@@ -41,12 +41,13 @@
       <label for="cartv">Numéro Carte Vitale</label>
       <input 
         v-model="form1.cartev" 
-        type="text" 
+        type="number" 
         id="cartv" 
-        maxlength = "30" 
+        maxlength="30" 
         placeholder="Entrez votre numéro de Carte Vitale" 
         required/><br />
     </div>
+
 
     <div class="gauche2">
       <label for="password">Password</label>
@@ -317,6 +318,7 @@ export default {
     };
   },
   methods: {
+    
     async handleSubmit() {
       let data = null;
       if (this.currentForm === 'form1') {
@@ -387,13 +389,30 @@ export default {
       }
 
 
-
+      
       
       
     },
-  
+    showForm(form) {
+      this.currentForm = form;
+      this.showButtons = false; 
+    },
+    submitForm() {
+      let formData = null;
+      if (this.currentForm === 'form1') {
+        formData = this.form1;
+      } else if (this.currentForm === 'form2') {
+        formData = this.form2;
+      } else if (this.currentForm === 'form3') {
+        formData = this.form3;
+      }
+
+      
+      this.formResults = JSON.stringify(formData, null, 2);
+    }
     
   }
+    
 };
 
 
