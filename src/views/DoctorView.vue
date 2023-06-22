@@ -72,6 +72,27 @@
           </div>
         </div>
       </div>
+      <div id="MedicamentPart">
+        <h2>Médicament(s)</h2>
+        <div id="MedicamentList" v-for="Medic in MedicListCount" :key="Medic" >
+          <div id="Médicament">
+            <div id="MedicamentInput">
+              <div id="MédicamentInfo">
+                <input type="text" placeholder="Médicament"/>
+                <input type="text" placeholder="Dosage"/>
+              </div>
+              <div id="MédicamentInfo">
+                <input type="text" placeholder="Fréquence"/>
+                <input type="text" placeholder="Durée"/>
+              </div>
+            </div>
+            <button id="supprMedicament" @click=removeMedicament(Medic)>X</button>
+          </div>
+        </div>
+        <button @click=addMedicament(count)>Ajouter un médicament</button>
+        <button id="submitOrdoButton" @click=submitOrdo()>Créer l'ordonnance</button>
+      </div>
+
     </form>
       <!--<div>
        <div class="gauche">
@@ -117,6 +138,8 @@
     name: "AddProduct",
     data() {
       return {
+        MedicListCount: [],
+        CountMed:0 ,
         product: {
           id: "",
           category: "",
@@ -125,9 +148,41 @@
           price: "",
           rating: null,
         },
+        Medecin:{
+          nom_medecin:"",
+          intitulé:"",
+          num_rue:"",
+          nom_rue:"",
+          codePostal:"",
+          ville:"",
+          telephone:"", 
+          RPPS:""
+        },
+        Client:{
+          nom_client:"",
+          prenom_client:"",
+          date_naissance:""
+        },
+        Medicament:{
+          nom_medicament:"",
+          dosage:"",
+          frequence:"",
+          duree:""
+        },
+        MedicamentList:[]
       };
     },
     methods: {
+      addMedicament(){
+        event.preventDefault()
+        this.MedicListCount.push(this.CountMed++)
+      },
+      removeMedicament(medic){
+        event.preventDefault()
+        let pos = medic
+        this.MedicListCount.splice(pos, 1)
+        this.CountMed--
+      },
       addProduct() {
         axios.post("http://localhost:3000/products", {
           category: this.product.category,
@@ -145,6 +200,9 @@
             console.log(error);
           });
       },
+      submitOrdo(){
+        
+      }
     },
   };
 </script>
@@ -177,7 +235,7 @@ body {
   right: -290px;
   bottom: -100px;
 }
-#OrdoForm {
+#OrdoForm, #MedicamentList {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -188,9 +246,10 @@ body {
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   background-color: rgba(255, 255, 255, 0.13);
   padding: 30px;
+  margin-bottom: 30px;
 }
 
-#DocPart, #ClientPart{
+#DocPart, #ClientPart, #MédicamentInput{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -200,13 +259,31 @@ body {
   border-bottom: solid black 2px;
 }
 
-#DocInfo, #DocAdress, #ClientInfo{
+#DocInfo, #DocAdress, #ClientInfo, #Médicament {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
+}
+
+#MédicamentInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+
+#supprMedicament {
+  width: auto;
+  height: auto;
+  padding:3%;
+}
+
+input{
+  margin: 10px;
+  padding: 10px;
 }
 
 .input{
@@ -242,7 +319,7 @@ body {
   width: 100%;
 }
 
-#ResearchInput button{
+#ResearchInput button, #submitOrdoButton{
   background-color: #00a38c;
   color: #ffffff;
   width: 100px;
@@ -251,9 +328,22 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+
 }
 
-#ResearchInput button:hover{
+#submitOrdoButton{
+  background-color: #00a38c;
+  color: #ffffff;
+  width: auto;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+#ResearchInput button:hover, #submitOrdoButton:hover{
   background-color: #00c7b1;
 }
 
@@ -275,23 +365,12 @@ h1 {
 
 h2{
   margin-top: 50px;
+  margin-bottom: 20px;
 }
-.gauche, .droite {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.gauche {
-  grid-column-start: 1;
-  grid-column-end: 2;
-}
-.droite {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-}
+
+
+
+
 form * {
   font-family: "Poppins", sans-serif;
   color: #000000;
