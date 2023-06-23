@@ -26,33 +26,33 @@
           <div id="DocInfo">
             <div class="input">
               <label>Nom</label>
-              <input type="text" placeholder="Nom" />
+              <input type="text" placeholder="Nom" v-model="Medecin.nom_medecin" />
             </div>
             <div class="input">
               <label>Spécialisation</label>
-              <input type="text" placeholder="Spécialisation"/>
+              <input type="text" placeholder="Spécialisation" v-model="Medecin.intitulé"/>
             </div>
           </div>
           <div id="DocAdress">
             <div class="input">
               <label>N°</label>
-              <input type="text" placeholder="N°"/>
+              <input type="text" placeholder="N°" v-model="Medecin.num_rue"/>
             </div>
             <div class="input">
               <label>Nom Rue</label>
-              <input type="text" placeholder="Nom Rue"/>
+              <input type="text" placeholder="Nom Rue" v-model="Medecin.nom_rue"/>
             </div>
             <div class="input">
               <label>Code postal</label>
-              <input type="text" placeholder="Code Postal"/>
+              <input type="text" placeholder="Code Postal" v-model="Medecin.codePostal"/>
             </div>
           </div>
           <label>Ville</label>
-          <input type="text" placeholder="Ville"/>
+          <input type="text" placeholder="Ville" v-model="Medecin.ville"/>
           <label>Telephone</label>
-          <input type="text" placeholder="N° Téléphone"/>
+          <input type="text" placeholder="N° Téléphone" v-model="Medecin.telephone"/>
           <label>Code RPPS</label>
-          <input type="text" placeholder="Code RPPS" />
+          <input type="text" placeholder="Code RPPS" v-model="Medecin.RPPS"/>
         </div>
       </div>
       <div id="ClientPart">
@@ -60,15 +60,15 @@
         <div id="ClientInfo">
           <div class="input">
             <label>Nom</label>
-            <input type="text" placeholder="Nom patient"/>
+            <input type="text" placeholder="Nom patient" v-model="Client.nom_client"/>
           </div>
           <div class="input">
             <label>Prénom</label>
-            <input type="text" placeholder="Prénom"/>
+            <input type="text" placeholder="Prénom" v-model="Client.prenom_client"/>
           </div>
           <div class="input">
             <label>Date de naissance</label>
-            <input type="text" placeholder="JJ/MM/AAAA"/>
+            <input type="text" placeholder="JJ/MM/AAAA" v-model="Client.date_naissance"/>
           </div>
         </div>
       </div>
@@ -185,27 +185,28 @@
         this.CountMed--
       },
       async FetchPatient(patientSearch){
-        const response = await axios.get("http://localhost:5000/" + patientSearch)
-        console.log(response.data)
-
+        event.preventDefault()
+        console.log(patientSearch)
+        const response = await axios.post("http://localhost:5000/med/getUser", {carteVitale : patientSearch})
+        console.log(response)
       },
-      addProduct() {
-        axios.post("http://localhost:3000/products", {
-          category: this.product.category,
-          name: this.product.name,
-          image: this.product.image,
-          price: this.product.price,
-          rating: this.product.rating,
-        });
-        console
-          .log(this.product)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
+      // addProduct() {
+      //   axios.post("http://localhost:3000/products", {
+      //     category: this.product.category,
+      //     name: this.product.name,
+      //     image: this.product.image,
+      //     price: this.product.price,
+      //     rating: this.product.rating,
+      //   });
+      //   console
+      //     .log(this.product)
+      //     .then((response) => {
+      //       console.log(response);
+      //     })
+      //     .catch((error) => {
+      //       console.log(error);
+      //     });
+      // },
       submitOrdo(){
         
       }
