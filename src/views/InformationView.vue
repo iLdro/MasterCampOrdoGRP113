@@ -14,6 +14,8 @@
       <input v-model="nouveau2" type="password" required>
     </div>
     <button type="submit">Réinitialiser</button>
+    <p v-if="message">{{ message }}</p>
+    
   </form>
 </template>
 
@@ -30,21 +32,23 @@ export default {
   },
   methods: {
     async handleId() {
+      this.message = ''; 
       const userId = localStorage.getItem('id'); // Retrieve userId from localStorage
-      console.log('VOICI ID', userId);
+      //console.log('VOICI ID', userId);
 
-      if (this.nouveau === this.nouveau2) {
+      if (this.nouveau === this.nouveau2 || this.ancien !== this.nouveau) {
         console.log(this.ancien);
         console.log(this.nouveau);
 
         axios
           .post('http://localhost:5000/user/changePassword', {
-            _id: userId,
+            id: userId,
             password: String(this.ancien),
-            newpassword: String(this.nouveau),
+            newPassword: String(this.nouveau),
           })
           .then((res) => {
             console.log('bien joué');
+            this.message = 'Changement de mot de passe effectué avec succès !';
             console.log(res);
           })
           .catch((err) => {
@@ -54,6 +58,9 @@ export default {
         console.log("T'a merdé");
       }
     },
+  },
+  created() {
+    this.message = '';
   },
 };
 
