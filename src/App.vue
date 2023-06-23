@@ -2,7 +2,7 @@
   <header class="header">
     <div class="logo">
       <img src="" >
-      Ezmed : Meds for all
+      Ordolib : La plateforme de gestion des ordonnances en ligne
     </div>
   </header>
   <nav>
@@ -100,6 +100,7 @@ export default {
 }
 body {
   background-color: rgb(255, 255, 255);
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

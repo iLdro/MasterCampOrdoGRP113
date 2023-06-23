@@ -1,7 +1,8 @@
 <template>
   <div class="presentation">
-    <br />
-    <div class="title"><h1>We strive to give medicine access to everyone</h1></div>
+    <div class="logo"><img  src="../assets/Logo2.png" alt="illustration " width="220" height="200"></div>
+    
+    <div class="title"><h1>La santé sur internet</h1></div>
   <img src="https://i.graphicmama.com/blog/wp-content/uploads/2021/04/13082623/free-medical-illustrations-09.png" alt="illustration ">
   </div>
 </template>
@@ -17,6 +18,10 @@ h1 {
   font-size: 50px;
   border-radius: 10px;
 }
+.title{
+  margin-top: -2%;
+}
+
 
 
 </style>
