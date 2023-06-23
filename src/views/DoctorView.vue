@@ -1,8 +1,4 @@
 <template>
-  <!-- <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-  </div> -->
 
   <div id="body">
     <header>
@@ -20,114 +16,52 @@
 
     <form id="OrdoForm">
       <h1>Create a prescription</h1>
-      <div id="DocPart">
-        <h2>Médecin</h2>
-        <div>
-          <div id="DocInfo">
-            <div class="input">
-              <label>Nom</label>
-              <input type="text" placeholder="Nom" v-model="Medecin.nom_medecin" />
-            </div>
-            <div class="input">
-              <label>Spécialisation</label>
-              <input type="text" placeholder="Spécialisation" v-model="Medecin.intitulé"/>
-            </div>
-          </div>
-          <div id="DocAdress">
-            <div class="input">
-              <label>N°</label>
-              <input type="text" placeholder="N°" v-model="Medecin.num_rue"/>
-            </div>
-            <div class="input">
-              <label>Nom Rue</label>
-              <input type="text" placeholder="Nom Rue" v-model="Medecin.nom_rue"/>
-            </div>
-            <div class="input">
-              <label>Code postal</label>
-              <input type="text" placeholder="Code Postal" v-model="Medecin.codePostal"/>
-            </div>
-          </div>
-          <label>Ville</label>
-          <input type="text" placeholder="Ville" v-model="Medecin.ville"/>
-          <label>Telephone</label>
-          <input type="text" placeholder="N° Téléphone" v-model="Medecin.telephone"/>
-          <label>Code RPPS</label>
-          <input type="text" placeholder="Code RPPS" v-model="Medecin.RPPS"/>
-        </div>
-      </div>
-      <div id="ClientPart">
-        <h2>Patient</h2>
-        <div id="ClientInfo">
-          <div class="input">
-            <label>Nom</label>
-            <input type="text" placeholder="Nom patient" v-model="Client.nom_client"/>
-          </div>
-          <div class="input">
-            <label>Prénom</label>
-            <input type="text" placeholder="Prénom" v-model="Client.prenom_client"/>
-          </div>
-          <div class="input">
-            <label>Date de naissance</label>
-            <input type="text" placeholder="JJ/MM/AAAA" v-model="Client.date_naissance"/>
-          </div>
-        </div>
-      </div>
       <div id="MedicamentPart">
         <h2>Médicament(s)</h2>
-        <div id="MedicamentList" v-for="Medic in MedicListCount" :key="Medic" >
+        
+        <div id="MedicamentList" v-for="(Medoc, index) in MedicamentList" :key="index" >
           <div id="Médicament">
             <div id="MedicamentInput">
               <div id="MédicamentInfo">
-                <input type="text" placeholder="Médicament"/>
-                <input type="text" placeholder="Dosage"/>
+                <div>{{Medoc.nom_medicament}}</div>
+                <div>{{Medoc.dosage}}</div>
               </div>
               <div id="MédicamentInfo">
-                <input type="text" placeholder="Fréquence"/>
-                <input type="text" placeholder="Durée"/>
+                <div>{{Medoc.frequence}}</div>
+                <div>{{Medoc.duree}}</div>
               </div>
             </div>
-            <button id="supprMedicament" @click=removeMedicament(Medic)>X</button>
+            <button id="supprMedicament" @click=removeMedicament(index)>X</button>
           </div>
         </div>
-        <button @click=addMedicament(count)>Ajouter un médicament</button>
+
+
+        <div id="MedicamentList">
+          <div id="Médicament">
+            <div id="MedicamentInput">
+              <div id="MédicamentInfo">
+                <input type="text" placeholder="Médicament" v-model="Medicament.nom_medicament"/>
+                <input type="text" placeholder="Dosage" v-model="Medicament.dosage"/>
+              </div>
+              <div id="MédicamentInfo">
+                <input type="text" placeholder="Fréquence" v-model="Medicament.frequence"/>
+                <input type="text" placeholder="Durée" v-model="Medicament.duree"/>
+              </div>
+              <button @click="validateMedoc()">Valider le médicament</button>
+            </div>
+          </div>
+        </div>
+
+
         <button id="submitOrdoButton" @click=submitOrdo()>Créer l'ordonnance</button>
       </div>
 
     </form>
-      <!--<div>
-       <div class="gauche">
-        <label>Select a category </label>
-        <input
-          list="category"
-          v-model="product.category"
-          placeholder="Select a category"
-        />
-        <datalist id="category">
-          <option value="Anti-inflammatoires" />
-          <option value="Antibiotiques " />
-          <option value="Cardiologie " />
-          <option value="Dermatologie " />
-          <option value="Autres" />
-        </datalist>
-        <label>Name</label>
-        <input type="text" v-model="product.name" placeholder="Name" />
-      </div>
-      <div class="droite">
-        <label>Product's image link</label>
-        <input
-          type="text"
-          v-model="product.image"
-          placeholder="Product's image link"
-        />
-        <label>Price (in euros)</label>
-        <input
-          type="number"
-          v-model="product.price"
-          placeholder="Price (in euros)"
-        />
-      </div> -->
-      <!-- <button v-on:click="addProduct()" class="submit">Submit</button>
-    </div> -->
+
+    <div id="success" v-if="DisplaySuccess">
+      <h1>Ordonnance créée avec succès</h1>
+      <button @click="SuccessButton()">Revenir à la page d'ordonnance</button>
+    </div>
       
   </div>
 </template>
@@ -138,8 +72,6 @@
     name: "AddProduct",
     data() {
       return {
-        MedicListCount: [],
-        CountMed:0 ,
         product: {
           id: "",
           category: "",
@@ -149,20 +81,11 @@
           rating: null,
         },
         Medecin:{
-          nom_medecin:"",
-          intitulé:"",
-          num_rue:"",
-          nom_rue:"",
-          codePostal:"",
-          ville:"",
-          telephone:"", 
-          RPPS:""
+          Med_id: ""
         },
         Client:{
-          nom_client:"",
-          prenom_client:"",
-          date_naissance:"", 
-          vital_card:""
+          vital_card:"",
+          client_id:""
         },
         Medicament:{
           nom_medicament:"",
@@ -170,45 +93,45 @@
           frequence:"",
           duree:""
         },
-        MedicamentList:[]
+        MedicamentList: [],
+        DisplaySuccess: false,
       };
     },
     methods: {
-      addMedicament(){
+      removeMedicament(index){
         event.preventDefault()
-        this.MedicListCount.push(this.CountMed++)
-      },
-      removeMedicament(medic){
-        event.preventDefault()
-        let pos = medic
-        this.MedicListCount.splice(pos, 1)
-        this.CountMed--
+        this.MedicamentList.splice(index, 1)
       },
       async FetchPatient(patientSearch){
         event.preventDefault()
-        console.log(patientSearch)
         const response = await axios.post("http://localhost:5000/med/getUser", {carteVitale : patientSearch})
-        console.log(response)
+        console.log(response.data)
+        this.Client.client_id = response.data._id
       },
-      // addProduct() {
-      //   axios.post("http://localhost:3000/products", {
-      //     category: this.product.category,
-      //     name: this.product.name,
-      //     image: this.product.image,
-      //     price: this.product.price,
-      //     rating: this.product.rating,
-      //   });
-      //   console
-      //     .log(this.product)
-      //     .then((response) => {
-      //       console.log(response);
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //     });
-      // },
+      validateMedoc(){
+        event.preventDefault()
+        this.MedicamentList.push(this.Medicament)
+        this.Medicament = {
+          nom_medicament:"",
+          dosage:"",
+          frequence:"",
+          duree:""
+        }
+        console.log(this.MedicamentList)
+      },
       submitOrdo(){
+        event.preventDefault()
+        const ordo = {
+          medecin_id : this.Medecin.Med_id,
+          client_id : this.Client.client_id,
+          medicaments : this.MedicamentList
+        }
+        console.log(ordo)
+        this.DisplaySuccess = true
         
+      },
+      SuccessButton(){
+        window.location.reload()
       }
     },
   };
@@ -226,22 +149,7 @@ body {
   left: 50%;
   top: 50%;
 }
-.background .shape {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
-}
-.shape:first-child {
-  background: linear-gradient(#0066ff, #ea00ff);
-  left: -290px;
-  top: -5px;
-}
-.shape:last-child {
-  background: linear-gradient(to right, #5eff00, #00ffbf);
-  right: -290px;
-  bottom: -100px;
-}
+
 #OrdoForm, #MedicamentList {
   display: flex;
   flex-direction: column;
@@ -425,6 +333,23 @@ button {
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
+}
+
+#success {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  background-color: rgba(255, 255, 255, 0.13);
+  padding: 30px;
+  margin-bottom: 30px;
+  width: 80%;
+  height: 80%;
 }
 
 </style>
