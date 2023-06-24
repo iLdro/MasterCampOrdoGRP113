@@ -7,8 +7,8 @@
         <div>
           <label>Numéro de carte vitale</label>
           <div id="ResearchInput">
-            <input id="vitNum" type="text" placeholder="Carte Vitale" v-model="Client.vital_card"/>
-            <button @click=FetchPatient(Client.vital_card)>Submit</button>
+            <input id="vitNum" type="text" placeholder="Carte Vitale" v-model="client.vital_card"/>
+            <button @click=FetchPatient(client.vital_card)>Submit</button>
           </div>
         </div>
       </form>
@@ -19,16 +19,16 @@
       <div id="MedicamentPart">
         <h2>Médicament(s)</h2>
         
-        <div id="MedicamentList" v-for="(Medoc, index) in MedicamentList" :key="index" >
-          <div id="Médicament">
-            <div id="MedicamentInput">
-              <div id="MédicamentInfo">
-                <div>{{Medoc.nom_medicament}}</div>
-                <div>{{Medoc.dosage}}</div>
+        <div id="ValidMedocList" v-for="(medoc, index) in medicamentList" :key="index" >
+          <div id="ValidMedoc">
+            <div id="MedicamentOutput">
+              <div id="MedocInfo">
+                <div>{{medoc.nom_medicament}}</div>
+                <div>{{medoc.dosage}}</div>
               </div>
-              <div id="MédicamentInfo">
-                <div>{{Medoc.frequence}}</div>
-                <div>{{Medoc.duree}}</div>
+              <div id="MedocInfo">
+                <div>{{medoc.frequence}}</div>
+                <div>{{medoc.duree}}</div>
               </div>
             </div>
             <button id="supprMedicament" @click=removeMedicament(index)>X</button>
@@ -40,12 +40,12 @@
           <div id="Médicament">
             <div id="MedicamentInput">
               <div id="MédicamentInfo">
-                <input type="text" placeholder="Médicament" v-model="Medicament.nom_medicament"/>
-                <input type="text" placeholder="Dosage" v-model="Medicament.dosage"/>
+                <input type="text" placeholder="Médicament" v-model="medicament.nom_medicament"/>
+                <input type="text" placeholder="Dosage" v-model="medicament.dosage"/>
               </div>
               <div id="MédicamentInfo">
-                <input type="text" placeholder="Fréquence" v-model="Medicament.frequence"/>
-                <input type="text" placeholder="Durée" v-model="Medicament.duree"/>
+                <input type="text" placeholder="Fréquence" v-model="medicament.frequence"/>
+                <input type="text" placeholder="Durée" v-model="medicament.duree"/>
               </div>
               <button @click="validateMedoc()">Valider le médicament</button>
             </div>
@@ -58,9 +58,9 @@
 
     </form>
 
-    <div id="success" v-if="DisplaySuccess">
+    <div id="success" v-if="displaySuccess">
       <h1>Ordonnance créée avec succès</h1>
-      <button @click="SuccessButton()">Revenir à la page d'ordonnance</button>
+      <button @click="successButton()">Revenir à la page d'ordonnance</button>
     </div>
       
   </div>
@@ -72,46 +72,38 @@
     name: "AddProduct",
     data() {
       return {
-        product: {
-          id: "",
-          category: "",
-          name: "",
-          image: "",
-          price: "",
-          rating: null,
+        medecin:{
+          med_id: ""
         },
-        Medecin:{
-          Med_id: ""
-        },
-        Client:{
+        client:{
           vital_card:"",
           client_id:""
         },
-        Medicament:{
+        medicament:{
           nom_medicament:"",
           dosage:"",
           frequence:"",
           duree:""
         },
-        MedicamentList: [],
-        DisplaySuccess: false,
+        medicamentList: [],
+        displaySuccess: false,
       };
     },
     methods: {
       removeMedicament(index){
         event.preventDefault()
-        this.MedicamentList.splice(index, 1)
+        this.medicamentList.splice(index, 1)
       },
       async FetchPatient(patientSearch){
         event.preventDefault()
         const response = await axios.post("http://localhost:5000/med/getUser", {carteVitale : patientSearch})
         console.log(response.data)
-        this.Client.client_id = response.data._id
+        this.client.client_id = response.data._id
       },
       validateMedoc(){
         event.preventDefault()
-        this.MedicamentList.push(this.Medicament)
-        this.Medicament = {
+        this.medicamentList.push(this.medicament)
+        this.medicament = {
           nom_medicament:"",
           dosage:"",
           frequence:"",
@@ -122,15 +114,15 @@
       submitOrdo(){
         event.preventDefault()
         const ordo = {
-          medecin_id : this.Medecin.Med_id,
-          client_id : this.Client.client_id,
-          medicaments : this.MedicamentList
+          medecin_id : this.medecin.med_id,
+          client_id : this.client.client_id,
+          medicaments : this.medicamentList
         }
         console.log(ordo)
-        this.DisplaySuccess = true
+        this.displaySuccess = true
         
       },
-      SuccessButton(){
+      successButton(){
         window.location.reload()
       }
     },
@@ -150,7 +142,7 @@ body {
   top: 50%;
 }
 
-#OrdoForm, #MedicamentList {
+#OrdoForm, #MedicamentList, #ValidMedocList {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -164,17 +156,17 @@ body {
   margin-bottom: 30px;
 }
 
-#DocPart, #ClientPart, #MédicamentInput{
+#MédicamentInput{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   padding-bottom : 10px;
   border-bottom: solid black 2px;
 }
 
-#DocInfo, #DocAdress, #ClientInfo, #Médicament {
+#Médicament{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -182,6 +174,32 @@ body {
   width: 100%;
   margin-bottom: 10px;
 }
+
+ #ValidMedoc{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+ }
+
+ #MedicamentOutput{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: right;
+  width: 100%;
+ }
+
+ #MedocInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-bottom: 10px;
+ }
+
 
 #MédicamentInfo{
   display: flex;
@@ -282,8 +300,6 @@ h2{
   margin-top: 50px;
   margin-bottom: 20px;
 }
-
-
 
 
 form * {
