@@ -16,6 +16,7 @@
 <script>
 import ProductService from "@/services/ProductService.js";
 
+
 export default {
   props: {
     product: {
@@ -23,17 +24,8 @@ export default {
       required: true,
     },
   },
+  
   methods: {
-    deleteProduct(id) {
-      console.log(id);
-      ProductService.deleteProduct(id)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
   },
 };
 </script>

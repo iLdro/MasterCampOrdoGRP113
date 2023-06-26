@@ -39,7 +39,7 @@ export default {
       this.userType = null;
       
       localStorage.removeItem("isLoggedIn");
-      this.$router.push('/login');
+      this.$router.push('/Home');
       localStorage.removeItem("userType");
       localStorage.removeItem("id");
     },
@@ -77,13 +77,19 @@ export default {
           if (this.isLoggedIn) {
             const userType = Number(localStorage.getItem("userType"));
             this.handleLogin(userType);
+            localStorage.setItem("lastRoute", this.$route.path);
           } else {
-            this.$router.push('/login');
+            const lastRoute = localStorage.getItem('lastRoute');
+            console.log('Last route:', lastRoute);
+            if (lastRoute) {
+              this.$router.push(lastRoute);
+            } else {
+              this.$router.push('/');
+            }
           }
-      }
 
-  };
-
+      },
+};
 
   
 

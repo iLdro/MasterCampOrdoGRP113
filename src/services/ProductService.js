@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:5000/",
   withCredentials: false,
   headers: {
     Accept: "application/json",
@@ -10,13 +10,13 @@ const apiClient = axios.create({
 });
 
 export default {
+  getOrdonnance(id) {
+    return apiClient.post("/ordonnance/getOrdonnance", { id });
+  },
   getProducts() {
     return apiClient.get("/Products");
   },
   //added new call
-  getProduct(id) {
-    return apiClient.get("/Products/" + id);
-  },
   deleteProduct(id) {
     return apiClient.delete("/Products/" + id);
   },

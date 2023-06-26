@@ -1,60 +1,35 @@
 <template>
   <div class="bigcontainer">
     <br />
-    <div class="products">
+    <div class="prescriptions">
       <table>
         <br />
         <tr>
-          <th class="Image">Image</th>
-          <th class="Product">Product</th>
-          <th class="Price">Price</th>
-          <th class="Remove">Remove</th>
-          <th class="ordonnance">Ordonnance</th>
+          <th class="Prescription">Prescription</th>
+          <th class="Date">Date</th>
+          <!-- add more table headers as needed -->
         </tr>
-        <tr v-for="(product, index) in cart" :key="index">
-          <td><img :src="product.image" /></td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.price }}€</td>
-          <td>
-            <button class="buy" v-on:click="removeItemFromCart(product)">
-              Remove from cart
-            </button>
-          </td>
-          <td>{{ product.ordo }}</td>
+        <tr v-for="(prescription, index) in prescriptions" :key="index">
+          <td>{{ prescription.name }}</td>
+          <td>{{ prescription.date }}</td>
+          <!-- add more table cells as needed -->
         </tr>
       </table>
     </div>
   </div>
-  <br />
-  <br />
-  <div>
-    <label class="custom-file-upload">
-      <input type="file" ref="fileInput" @change="handleFileChange" />
-    </label>
-    <br />
-    <button class="upload-button" @click="checkPrescription">Confirmer</button>
-  </div>
-  <div class="ordo">Veuillez nous fournir votre ordonnance.</div>
 </template>
-
 <script>
 import ProductService from "@/services/ProductService.js";
 export default {
   props: ["cart"],
   data: () => {
     return {
-      products: null,
+      prescription: [],
     };
   },
   methods: {
     removeItemFromCart(product) {
       this.$emit("removeItemFromCart", product);
-    },
-    total() {
-      this.total = this.product.prix.reduce(
-        (total, current) => total + current,
-        0
-      );
     },
     checkPrescription() {
       const hasPrescription = this.cart.some(product => product.ordo);
@@ -65,50 +40,18 @@ export default {
         console.log("Aucun produit ne nécessite une ordonnance.");
       }
     },
-    /*
-    handleFileChange() {
-      // Récupérer les fichiers sélectionnés
-      const files = this.$refs.fileInput.files;
-      // Faire quelque chose avec les fichiers, comme les stocker dans le modèle de données
-      // ou les envoyer à un serveur
-      console.log(files);
-    },
-    uploadFile() {
-      // Effectuer des opérations de téléchargement ou de publication des fichiers
-      // en utilisant les fichiers sélectionnés
-      const files = this.$refs.fileInput.files;
-      // Exemple d'envoi de fichiers via une requête AJAX (AJAX doit être configuré correctement)
-      const formData = new FormData();
-      for (let i = 0; i < files.length; i++) {
-        formData.append("file", files[i]);
-      }
-      axios
-        .post("/votre-endpoint", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log("Fichier publié avec succès !");
-          // Faire quelque chose avec la réponse du serveur
-        })
-        .catch((error) => {
-          console.error("Erreur lors de la publication du fichier :", error);
-          // Gérer les erreurs de téléchargement ou de publication
-        });
-    },
-    */
+   
+    
   },
   created() {
-    //get events from mock db when component is created
-    ProductService.getProducts()
-      .then((response) => {
-        this.products = response.data;
+    ProductService.getOrdonnance("64958e29428e5f9a03cba8ca")
+      .then(response => {
+        this.prescriptions = response.data;
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
-  },
+  }
 };
 </script>
 
