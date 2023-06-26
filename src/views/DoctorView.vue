@@ -8,7 +8,7 @@
           <label>Numéro de carte vitale</label>
           <div id="ResearchInput">
             <input id="vitNum" type="text" placeholder="Carte Vitale" v-model="client.vital_card"/>
-            <button @click=FetchPatient(client.vital_card)>Submit</button>
+            <button @click=FetchPatient(client.vital_card)>{{validateClient}}</button>
           </div>
         </div>
       </form>
@@ -72,6 +72,7 @@
     name: "AddProduct",
     data() {
       return {
+        validateClient: "Chercher",
         medecin:{
           med_id: ""
         },
@@ -99,6 +100,7 @@
         const response = await axios.post("http://localhost:5000/med/getUser", {carteVitale : patientSearch})
         console.log(response.data)
         this.client.client_id = response.data._id
+        this.validateClient = "Patient trouvé"
       },
       validateMedoc(){
         event.preventDefault()
@@ -336,10 +338,6 @@ input {
   color: #000000;
 }
 button {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: 4;
   margin-top: 50px;
   width: 100%;
   background-color: #000000;
