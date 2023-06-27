@@ -177,37 +177,36 @@ body {
   margin-bottom: 10px;
 }
 
- #ValidMedoc{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
- }
+#ValidMedoc{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+}
 
- #MedicamentOutput{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: right;
-  width: 100%;
- }
+#MedicamentOutput{
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: right;
+width: 100%;
+}
 
- #MedocInfo {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  margin-bottom: 10px;
- }
+#MedocInfo {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+width: 80%;
+margin-bottom: 10px;
+}
 
 
 #MédicamentInfo{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
 }
 
 #supprMedicament {
@@ -337,6 +336,7 @@ input {
 ::placeholder {
   color: #000000;
 }
+
 button {
   margin-top: 50px;
   width: 100%;
