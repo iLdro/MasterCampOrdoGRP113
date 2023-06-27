@@ -1,23 +1,26 @@
 
-<template>
-  <!-- <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-  </div> -->
-  <form id="Connexion">
+<template >
+  <form id="Connexion" @submit.prevent= "handleSubmit">
     <h1>Login</h1>
     <div id="ConnexionInfo">
       <div class="input">
         <label>Email</label>
-        <input type="text" placeholder="Email" />
+        <input type="email" id="email" v-model="email" placeholder="Email" required />
       </div>
       <div class="input">
         <label>Password</label>
-        <input type="text" placeholder="Password" />
+        <input type="password" id="password" v-model="password" placeholder="Password"  required/>
+        
       </div>
+      
     </div>
+    
+    <a @click="handleClick">mot de passe oublié?</a>
     <button type="submit">Login</button>
+    <p v-if="message">{{ message }}</p>
+    
   </form>
+
 </template>
 
 <script>
@@ -26,40 +29,53 @@ import axios from 'axios'
 
 import jwtDecode from 'jwt-decode';
 export default {
-  
-  data(){
-    return{
-      email:'',
-      password:''
-      }
-    },
-    methods: {
-    
-    
-
+  data() {
+    return {
+      email: '',
+      password: '',
+      message: ''
+    }
+  },
+  methods: {
     handleSubmit() {
+      this.message = ''; // Reset the message value
 
       axios
         .post("http://localhost:5000/login/user", {
-          email: this.email,
-          password: this.password,
+          email: String(this.email),
+          password: String(this.password),
         })
         .then((res) => {
           console.log(res.data);
           const decodedToken = jwtDecode(res.data);
-          console.log(decodedToken);
+          console.log("TOKEN DECODE : "+ decodedToken);
           localStorage.setItem("token", decodedToken);
+          const userType = decodedToken.userType;
+          const userId = decodedToken.id;
+          localStorage.setItem('id', userId);
+          this.$emit('login', userType);
+          this.$emit('id', userId);
+          console.log('emitted id event with value:', userId);
+          console.log("VOICI LID DE LOGIN : "+ userId);
+
+          this.message = 'Logged in successfully. Redirecting..';
         })
         .catch((err) => {
           console.log(err);
+          this.message = err.response.data;
+          console.log(`message: ${this.message}`);
         });
-
-        }
-
-      },
-
-      };
+    },
+    handleClick() {
+      this.$router.push('/recupmdp');
+    }
+  },
+  created() {
+    this.message = '';
+  }
+};
 </script>
+
 
 <style scoped>
 body {
