@@ -1,22 +1,32 @@
 
 <template >
-  <form id="Connexion" @submit.prevent= "handleSubmit">
+  <form id="Connexion"  @submit.prevent= "handleSubmit">
     <h1>Login</h1>
-    <div id="ConnexionInfo">
-      <div class="input">
-        <label>Email</label>
-        <input type="email" id="email" v-model="email" placeholder="Email" required />
-      </div>
-      <div class="input">
-        <label>Password</label>
-        <input type="password" id="password" v-model="password" placeholder="Password"  required/>
-        
-      </div>
-      
+
+    <div id="ChoiceButton">
+      <button @click="MedChoice()">Medecin</button>
+      <button @click="ClientChoice()">Client</button>
+      <button @click="PharmaChoice()">Pharmacien</button>
+      <button @click="AdminChoice()">Admin</button>
     </div>
+
+    <div id="Login" v-if="roleChosen">
+      <div id="ConnexionInfo">
+        <div class="input">
+          <label>Email</label>
+          <input type="email" id="email" v-model="email" placeholder="Email" required />
+        </div>
+        <div class="input">
+          <label>Password</label>
+          <input type="password" id="password" v-model="password" placeholder="Password"  required/>
+        </div>
+      </div>
+    </div>
+
+    
     
     <a @click="handleClick">mot de passe oublié?</a>
-    <button type="submit">Login</button>
+    <button type="Submit">Login</button>
     <p v-if="message">{{ message }}</p>
     
   </form>
@@ -33,15 +43,46 @@ export default {
     return {
       email: '',
       password: '',
-      message: ''
+      message: '',
+      isMed: false,
+      isClient: false,
+      isPharma: false,
+      isAdmin: false,
+      roleChosen: false,
     }
   },
   methods: {
     handleSubmit() {
+      event.preventDefault();
+      console.log("SUBMIT")
+      if (this.isMed) {
+        console.log("med route")
+        let route = "http://localhost:5000/login/med"
+        console.log("ROUTE : "+ route);
+        this.fetchGoodData(route)
+      }
+      else if (this.isClient) {
+        console.log("cleint route")
+        let route = "http://localhost:5000/login/user"
+        this.fetchGoodData(route)
+      }
+      else if (this.isPharma) {
+        console.log("pharma route")
+        let route = "http://localhost:5000/login/pharmacien"
+        this.fetchGoodData(route)
+      }
+      else if (this.isAdmin) {
+        console.log("admin route")
+        let route = "http://localhost:5000/login/admin"
+        this.fetchGoodData(route)
+      }
+    
+    },
+    fetchGoodData(route){
       this.message = ''; // Reset the message value
-
+      console.log("ROUTE : "+ route); 
       axios
-        .post("http://localhost:5000/login/user", {
+        .post(route, {
           email: String(this.email),
           password: String(this.password),
         })
@@ -68,6 +109,34 @@ export default {
     },
     handleClick() {
       this.$router.push('/recupmdp');
+    },
+    MedChoice(){
+      this.roleChosen = true;
+      this.isMed = true;
+      this.isClient = false;
+      this.isPharma = false;
+      this.isAdmin = false;
+    },
+    ClientChoice(){
+      this.roleChosenoleChosen = true;
+      this.isMed = false;
+      this.isClient = true;
+      this.isPharma = false;
+      this.isAdmin = false;
+    },
+    PharmaChoice(){
+      this.roleChosen = true;
+      this.isMed = false;
+      this.isClient = false;
+      this.isPharma = true;
+      this.isAdmin = false;
+    },
+    AdminChoice(){
+      this.roleChosen = true;
+      this.isMed = false;
+      this.isClient = false;
+      this.isPharma = false;
+      this.isAdmin = true;
     }
   },
   created() {
@@ -192,5 +261,13 @@ button {
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
+}
+
+#ChoiceButton{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 60%;
 }
 </style>

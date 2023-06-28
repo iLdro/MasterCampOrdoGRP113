@@ -11,7 +11,7 @@ const apiClient = axios.create({
 
 export default {
   getOrdonnance(id) {
-    return apiClient.post("/ordonnance/getOrdonnance", { id });
+    return apiClient.post("/user/getOrdonnances", { id });
   },
   getProducts() {
     return apiClient.get("/Products");

@@ -5,55 +5,111 @@
       <table>
         <br />
         <tr>
-          <th class="Prescription">Prescription</th>
-          <th class="Date">Date</th>
-          <!-- add more table headers as needed -->
+          <th class="nom_medicament">Nom</th>
+          <th class="dosage">Dosage</th>
+          <th class="fréquence">Frequence</th>
+          <th class="Durée">Durée</th>
+          <th class="Ordonnance">Ordonnance</th>
         </tr>
-        <tr v-for="(prescription, index) in prescriptions" :key="index">
-          <td>{{ prescription.name }}</td>
-          <td>{{ prescription.date }}</td>
-          <!-- add more table cells as needed -->
-        </tr>
+
+        <template v-for="(prescriptions, index) in prescriptions" :key="index">
+          <template v-if="prescriptions.expired === false">
+          
+            <tr>
+              <td colspan="4">Prescription {{ index + 1 }}</td>
+            </tr>
+            <tr v-for="(medicaments, index) in prescriptions.medicaments" :key="index">
+              <td>{{ medicaments.nom_medicament }}</td>
+              <td>{{ medicaments.dosage }}</td>
+              <td>{{ medicaments.fréquence }}</td>
+              <td>{{ medicaments.duree }}</td>
+              <td><img :src="prescriptions.image_url"></td>
+             
+            </tr>
+          </template>
+        
+        </template>
       </table>
     </div>
   </div>
 </template>
+
 <script>
 import ProductService from "@/services/ProductService.js";
+import axios from "axios";
+import { initializeApp } from 'firebase/app';
+import { getStorage } from "firebase/storage";
+import { ref, getDownloadURL } from 'firebase/storage';
+
 export default {
   props: ["cart"],
-  data: () => {
+  data() {
     return {
-      prescription: [],
-    };
+      prescriptions: [],
+      imageUrl: "",
+      
+    }; 
   },
   methods: {
-    removeItemFromCart(product) {
-      this.$emit("removeItemFromCart", product);
-    },
-    checkPrescription() {
-      const hasPrescription = this.cart.some(product => product.ordo);
-      if (hasPrescription) {
-        console.log("Au moins un produit nécessite une ordonnance.");
-        alert("nous avons besoin de votre ordonnance pour valider ce panier")
-      } else {
-        console.log("Aucun produit ne nécessite une ordonnance.");
-      }
-    },
-   
-    
   },
   created() {
     ProductService.getOrdonnance("64958e29428e5f9a03cba8ca")
       .then(response => {
+        console.log("ici LA REPONSE")
+        console.log(response.data);
         this.prescriptions = response.data;
+        
+        console.log("ORDONNNANCE")
+        console.log(this.prescriptions);
       })
       .catch(error => {
         console.log(error);
       });
-  }
-};
-</script>
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyDPUmUJRHyiKpeD0h7S3uTGSBBW2mCI36k",
+        authDomain: "odomastercamp.firebaseapp.com",
+        projectId: "odomastercamp",
+        storageBucket: "odomastercamp.appspot.com",
+        messagingSenderId: "854010577490",
+        appId: "1:854010577490:web:6a68d85dd0c80513cad58b",
+        measurementId: "G-G2KEYC7PEP"
+      };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig, { storageBucket: 'odomastercamp.appspot.com'});
+  const storage = getStorage(app);
+  console.log("storage")
+  console.log(storage);
+  
+  const imageRef = ref(storage, '1687781370.jpg');
+  //console.log(imageRef);
+  console.log("getDownloadURL(imageRef)")
+  console.log( getDownloadURL(imageRef))
+
+  axios.post('http://localhost:5000/user/getImages',  this.prescriptions.image_url )
+      .then((url) => {
+        // Use the URL to access and display the image
+        console.log("YOUPI CA MARCHE")
+        console.log(url);
+      })
+      .catch((error) => {
+        console.log("ici erreur")
+        // Handle any errors that occur
+        console.log(error)
+        
+      });
+    
+  },
+  mounted() {
+    
+    },
+
+
+
+
+
+};</script>
 
 <style scoped>
 .user-info {
