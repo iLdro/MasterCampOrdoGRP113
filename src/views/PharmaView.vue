@@ -76,6 +76,8 @@ export default {
       response.data.medicaments.forEach(element => {
         this.medocList.push(element)
       });
+      this.medecin.med_id = response.data.medecin_id
+      this.client.client_id = response.data.user_id
       console.log(this.medocList)
       console.log(this.medocList[0].nom_medicament)
       this.validateOrdo = "Trouvé"
@@ -87,10 +89,12 @@ export default {
     },
     submitOrdo(){
         event.preventDefault()
+        console.log(this.me)
         const ordo = {
           medecin_id : this.medecin.med_id,
           client_id : this.client.client_id,
-          medicaments : this.medicamentList
+          medicaments : this.medocList,
+          pharma_id : this.pharmacien.pharmacien_id
         }
         console.log(ordo)
         this.displaySuccess = true
@@ -102,7 +106,7 @@ export default {
   },
   mounted() {
       this.pharmacien.pharmacien_id = localStorage.getItem("id")
-      console.log(this.medecin.med_id)
+      console.log(this.pharmacien.pharmacien_id)
     },
 };
 </script>
