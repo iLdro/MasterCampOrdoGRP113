@@ -174,12 +174,12 @@
       /><br />
     </div>
     <div class="droite2" >
-      <label for="birthDate">Date de naissance</label>
+      <label for="intitulé">Profession</label>
       <input 
-        v-model="form2.dateNaissance" 
-        type="date" 
+        v-model="form2.intitule" 
+        type="text" 
         id="birthDate" 
-        placeholder="Entrez votre date de naissance" 
+        placeholder="Entrez votre profession" 
         required /><br />
     </div>
     
@@ -328,7 +328,7 @@ export default {
         pnumber:'',
         insee:'',
         rpps:'',
-        dateNaissance:''
+        intitule:''
       },
       form3: {
         surname:'',
@@ -382,10 +382,10 @@ export default {
         email: String(this.form2.email),
         profINSEE: String(this.form2.insee),
         RPPS: String(this.form2.rpps),
-        dateNaissance: String(this.form1.dateNaissance),
+        intitule: String(this.form2.intitule),
         signature: this.form2.name + ' ' + this.form2.surname
       }
-
+      console.log(data);
         axios.post('http://localhost:5000/create/med', data)
         .then(res => {
           console.log(res);
@@ -393,7 +393,6 @@ export default {
         .catch(err => {
           console.log(err);
         });
-        console.log(data);
       }
       
 
@@ -517,7 +516,7 @@ body {
 .form3{
   display: grid;
   grid-template-columns: 1fr 1fr;
- 
+  margin-top: 3%;
   width: 800px;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;

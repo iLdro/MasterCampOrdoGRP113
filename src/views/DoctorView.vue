@@ -128,6 +128,10 @@
         window.location.reload()
       }
     },
+    mounted() {
+      this.medecin.med_id = localStorage.getItem("id")
+      console.log(this.medecin.med_id)
+    },
   };
 </script>
 

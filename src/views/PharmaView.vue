@@ -49,6 +49,9 @@ export default {
   name: "GuestView",
   data(){
     return{
+      pharmacien:{
+        pharmacien_id: ""
+      },
       ordo: {
         Id: "",
       },
@@ -96,7 +99,11 @@ export default {
     successButton(){
       window.location.reload()
     }
-  }
+  },
+  mounted() {
+      this.pharmacien.pharmacien_id = localStorage.getItem("id")
+      console.log(this.medecin.med_id)
+    },
 };
 </script>
 
