@@ -39,7 +39,9 @@ import ProductService from "@/services/ProductService.js";
 import axios from "axios";
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
-import { ref, getDownloadURL } from 'firebase/storage';
+//import { ref, getDownloadURL } from 'firebase/storage';
+import { ref} from 'firebase/storage';
+
 
 export default {
   props: ["cart"],
@@ -51,6 +53,26 @@ export default {
     }; 
   },
   methods: {
+    convertBSONToPNG(bsonData) {
+    fetch('http://localhost:5000/convert', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ bsonData }),
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        // Create a URL for the blob object
+        const url = URL.createObjectURL(blob);
+
+        // Use the URL to display the PNG file
+        this.imageUrl = url;
+      })
+      .catch(error => {
+        console.log('Error converting BSON to PNG:', error);
+      });
+  },
   },
   created() {
     ProductService.getOrdonnance("64958e29428e5f9a03cba8ca")
@@ -76,37 +98,36 @@ export default {
         measurementId: "G-G2KEYC7PEP"
       };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig, { storageBucket: 'odomastercamp.appspot.com'});
-  const storage = getStorage(app);
-  console.log("storage")
-  console.log(storage);
-  
-  const imageRef = ref(storage, '1687781370.jpg');
-  //console.log(imageRef);
-  console.log("getDownloadURL(imageRef)")
-  console.log( getDownloadURL(imageRef))
-
-  axios.post('http://localhost:5000/user/getImages',  this.prescriptions.image_url )
-      .then((url) => {
-        // Use the URL to access and display the image
-        console.log("YOUPI CA MARCHE")
-        console.log(url);
-      })
-      .catch((error) => {
-        console.log("ici erreur")
-        // Handle any errors that occur
-        console.log(error)
-        
-      });
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig, { storageBucket: 'odomastercamp.appspot.com'});
+    const storage = getStorage(app);
     
-  },
-  mounted() {
+
+    const imageRef = ref(storage, '1687781370.jpg');
+   
+    console.log(imageRef)
+
+    axios.post('http://localhost:5000/user/getImages',  {id:"649c017474ae4369162836bb"})
+        .then((url) => {
+          // Use the URL to access and display the image
+          console.log("YOUPI CA MARCHE")
+          console.log(url);
+          this.imageUrl = url.data;
+          console.log(url.data.image)
+          this.convertBSONToPNG(url.data.image);
+
+          })
+          .catch((error) => {
+            console.log("ici erreur");
+            // Handle any errors that occur
+            console.log(error);
+          });
+              
+            },
     
-    },
-
-
-
+    mounted() {
+      
+    }
 
 
 };</script>
