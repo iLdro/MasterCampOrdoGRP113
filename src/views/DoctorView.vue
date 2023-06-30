@@ -113,15 +113,17 @@
         }
         console.log(this.MedicamentList)
       },
-      submitOrdo(){
+      async submitOrdo(){
         event.preventDefault()
         const ordo = {
-          medecin_id : this.medecin.med_id,
           client_id : this.client.client_id,
+          medecin_id : this.medecin.med_id,
           medicaments : this.medicamentList
         }
         console.log(ordo)
         this.displaySuccess = true
+        const response  = await axios.post("http://localhost:5000/med/createOrdonnance", ordo)
+        console.log(response.data)
         
       },
       successButton(){

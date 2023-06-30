@@ -23,7 +23,7 @@
               <div>{{medoc.dosage}}</div>
             </div>
             <div id="MedicamentInfo">
-              <div>{{medoc.fréquence}}</div>
+              <div>{{medoc.frequence}}</div>
               <div>{{medoc.duree}}</div>
             </div>
             <button id="supprButton" @click="removeMedicament(index)">Enlever le médicament</button>
@@ -91,13 +91,14 @@ export default {
         event.preventDefault()
         console.log(this.me)
         const ordo = {
-          medecin_id : this.medecin.med_id,
-          client_id : this.client.client_id,
-          medicaments : this.medocList,
-          pharma_id : this.pharmacien.pharmacien_id
+          id : this.ordo.Id,
+          pharmacien_id : this.pharmacien.pharmacien_id,
+          medicaments : this.medocList
         }
         console.log(ordo)
         this.displaySuccess = true
+        const response = axios.post("http://localhost:5000/pharmacien/modifyOrdonnance", ordo)
+        console.log(response)
         
     },
     successButton(){
