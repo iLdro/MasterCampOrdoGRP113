@@ -69,7 +69,7 @@ export default {
       axios.post("http://localhost:5173/ordonnance", 
         {
 
-          client_id: this.prescriptions[0].user_id,
+          client_id: this.prescriptions[0].client_id,
           medecin_id: this.prescriptions[0].medecin_id,
           medicaments: this.medicament,
         },{responseType: 'blob'})
@@ -112,7 +112,7 @@ export default {
         
         console.log("ORDONNNANCE")
         console.log(this.prescriptions)
-        console.log("User ID:", this.prescriptions[0].user_id);
+        console.log("Client ID:", this.prescriptions[0].client_id);
       console.log("Medecin ID:", this.prescriptions[0].medecin_id);
       console.log("Medicaments:", this.prescriptions[0].medicaments);
       })

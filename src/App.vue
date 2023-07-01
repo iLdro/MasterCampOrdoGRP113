@@ -39,7 +39,7 @@ export default {
       this.userType = null;
       
       localStorage.removeItem("isLoggedIn");
-      this.$router.push('/Home');
+      this.$router.push('/');
       localStorage.removeItem("userType");
       localStorage.removeItem("id");
     },
