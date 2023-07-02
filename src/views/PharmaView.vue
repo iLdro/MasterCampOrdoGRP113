@@ -23,7 +23,7 @@
               <div>{{medoc.dosage}}</div>
             </div>
             <div id="MedicamentInfo">
-              <div>{{medoc.frequence}}</div>
+              <div>{{medoc.fréquence}}</div>
               <div>{{medoc.duree}}</div>
             </div>
             <button id="supprButton" @click="removeMedicament(index)">Enlever le médicament</button>

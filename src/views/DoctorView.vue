@@ -27,7 +27,7 @@
                 <div>{{medoc.dosage}}</div>
               </div>
               <div id="MedocInfo">
-                <div>{{medoc.frequence}}</div>
+                <div>{{medoc.fréquence}}</div>
                 <div>{{medoc.duree}}</div>
               </div>
             </div>
@@ -44,7 +44,7 @@
                 <input type="text" placeholder="Dosage" v-model="medicament.dosage"/>
               </div>
               <div id="MédicamentInfo">
-                <input type="text" placeholder="Fréquence" v-model="medicament.frequence"/>
+                <input type="text" placeholder="Fréquence" v-model="medicament.fréquence"/>
                 <input type="text" placeholder="Durée" v-model="medicament.duree"/>
               </div>
               <button @click="validateMedoc()">Valider le médicament</button>
@@ -83,7 +83,7 @@
         medicament:{
           nom_medicament:"",
           dosage:"",
-          frequence:"",
+          fréquence:"",
           duree:""
         },
         medicamentList: [],
@@ -108,7 +108,7 @@
         this.medicament = {
           nom_medicament:"",
           dosage:"",
-          frequence:"",
+          fréquence:"",
           duree:""
         }
         console.log(this.MedicamentList)
@@ -121,9 +121,14 @@
           medicaments : this.medicamentList
         }
         console.log(ordo)
-        this.displaySuccess = true
-        const response  = await axios.post("http://localhost:5000/med/createOrdonnance", ordo)
-        console.log(response.data)
+        try{
+          const response  = await axios.post("http://localhost:5000/med/createOrdonnance", ordo)
+          this.displaySuccess = true
+          console.log(response.data)
+        }
+        catch(error){
+          console.log(error)
+        }
         
       },
       successButton(){

@@ -94,7 +94,9 @@ export default {
     
     },
   created() {
-    ProductService.getOrdonnance("64958e29428e5f9a03cba8ca")
+    const userId = localStorage.getItem("id");
+    console.log(userId);
+    ProductService.getOrdonnance(userId)
       .then(response => {
         console.log("ici LA REPONSE")
         console.log(response.data);
