@@ -58,7 +58,7 @@ export default {
         return {
           nom_medicament: med.nom_medicament,
           dosage: med.dosage,
-          frequence: med.fréquence,
+          fréquence: med.fréquence,
           duree: med.duree,
         };
       });
@@ -71,31 +71,21 @@ export default {
 
           client_id: this.prescriptions[0].client_id,
           medecin_id: this.prescriptions[0].medecin_id,
+          pharmarcien_id: this.prescriptions[0].pharmarcien_id,
           medicaments: this.medicament,
+
         },{responseType: 'blob'})
        
        
         .then(response => {
-          //console.log("REPONSE")
-          //console.log(response.data);
-          //this.imageUrl = response.data._id;
-          //console.log("IMAGE URL")
-          //console.log(this.imageUrl)
-          // const blob = new Blob([response.data], { type: 'image/png' });
-
-          // // Create object URL for the Blob
-          // const imageUrl = URL.createObjectURL(blob);
-
-          // console.log("IMAGE URL")
-          // console.log(imageUrl)
           
-          // window.open(imageUrl, '_blank');
           console.log("REPONSE",response.data)
           const url = window.URL.createObjectURL(response.data);
           console.log("URL",url)
           window.open(url, '_blank');
         },)
         .catch(error => {
+          console.log("ERROR")
           console.log(error);
         });
         
