@@ -95,11 +95,11 @@ router.beforeEach((to, from, next) => {
         //console.log('allowing access to /pharma or /info for userType 3');
         next();
       } else {
-        //console.log('redirecting to home page');
+        console.log('redirecting to home page');
         next("/");
       }
     } else {
-      //console.log('isLoggedIn is false');
+      console.log('isLoggedIn is false');
       next("/");
     }
   } else {  

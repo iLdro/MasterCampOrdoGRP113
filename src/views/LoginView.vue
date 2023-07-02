@@ -1,15 +1,16 @@
 
 <template >
-  <form id="Connexion"  @submit.prevent= "handleSubmit">
+  <form id="Connexion"  >
     <h1>Login</h1>
-
     <div id="ChoiceButton">
-      <button @click="MedChoice()">Medecin</button>
-      <button @click="ClientChoice()">Client</button>
-      <button @click="PharmaChoice()">Pharmacien</button>
-      <button @click="AdminChoice()">Admin</button>
+      <button @click="MedChoice()" :class="{ 'selected': selectedRole === 'medecin' }">Medecin</button>
+      <button @click="ClientChoice()" :class="{ 'selected': selectedRole === 'client' }">Client</button>
+      <button @click="PharmaChoice()" :class="{ 'selected': selectedRole === 'pharmacien' }">Pharmacien</button>
+      <button @click="AdminChoice()" :class="{ 'selected': selectedRole === 'admin' }">Admin</button>
+
     </div>
 
+    <form  @submit.prevent= "handleSubmit">
     <div id="Login" v-if="roleChosen">
       <div id="ConnexionInfo">
         <div class="input">
@@ -26,9 +27,10 @@
     
     
     <a @click="handleClick">mot de passe oublié?</a>
+    <br/>
     <button type="Submit">Login</button>
     <p v-if="message">{{ message }}</p>
-    
+    </form>
   </form>
 
 </template>
@@ -110,34 +112,39 @@ export default {
     handleClick() {
       this.$router.push('/recupmdp');
     },
-    MedChoice(){
+    ClientChoice() {
+      this.roleChosen = true;
+      this.isMed = false;
+      this.isClient = true;
+      this.isPharma = false;
+      this.isAdmin = false;
+      this.selectedRole = 'client'; 
+    },
+    MedChoice() {
       this.roleChosen = true;
       this.isMed = true;
       this.isClient = false;
       this.isPharma = false;
       this.isAdmin = false;
+      this.selectedRole = 'medecin'; 
     },
-    ClientChoice(){
-      this.roleChosenoleChosen = true;
-      this.isMed = false;
-      this.isClient = true;
-      this.isPharma = false;
-      this.isAdmin = false;
-    },
-    PharmaChoice(){
+    PharmaChoice() {
       this.roleChosen = true;
       this.isMed = false;
       this.isClient = false;
       this.isPharma = true;
       this.isAdmin = false;
+      this.selectedRole = 'pharmacien'; 
     },
-    AdminChoice(){
+    AdminChoice() {
       this.roleChosen = true;
       this.isMed = false;
       this.isClient = false;
       this.isPharma = false;
       this.isAdmin = true;
-    }
+      this.selectedRole = 'admin'; 
+    },
+
   },
   created() {
     this.message = '';
@@ -254,6 +261,7 @@ input {
 }
 button {
   margin-top: 50px;
+  margin-bottom: 20px;
   background-color: #000000;
   color: #ffffff;
   padding: 15px;
@@ -269,5 +277,13 @@ button {
   justify-content: space-around;
   align-items: center;
   width: 60%;
+}
+a{
+  margin: 20px;
+}
+
+.selected {
+  background-image: linear-gradient(to right, #00a38c, #0054a3);
+  color: #ffffff; 
 }
 </style>
