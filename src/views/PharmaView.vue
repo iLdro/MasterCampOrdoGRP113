@@ -33,6 +33,8 @@
 
 
       <button v-if="displaySaveButton" id="submitOrdoButton" @click=submitOrdo()>sauvegarder l'ordonnance</button>
+
+      <button v-if="displayValidateButton" id="finishOrdo" @click="finishOrdo()">Valider l'ordonnance</button>
     </form>
 
 
@@ -65,7 +67,8 @@ export default {
         client_id:""
       },
       displaySuccess: false,
-      displaySaveButton: false
+      displaySaveButton: false,
+      displayValidateButton: false
     }
   }, 
   methods: {
@@ -82,6 +85,7 @@ export default {
       console.log(this.medocList[0].nom_medicament)
       this.validateOrdo = "Trouvé"
       this.displaySaveButton = true
+      this.displayValidateButton = true
     },
     removeMedicament(index){
         event.preventDefault()
@@ -103,6 +107,15 @@ export default {
     },
     successButton(){
       window.location.reload()
+    },
+    async finishOrdo(){
+      event.preventDefault()
+      const ordo = {
+        id : this.ordo.Id,
+      }
+      const response = await axios.post("http://localhost:5000/pharmacien/validationOrdonnance", ordo)
+      console.log(response)
+      this.displaySuccess = true
     }
   },
   mounted() {
