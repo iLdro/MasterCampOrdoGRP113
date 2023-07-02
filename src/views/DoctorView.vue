@@ -1,8 +1,4 @@
 <template>
-  <!-- <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-  </div> -->
 
   <div id="body">
     <header>
@@ -11,8 +7,8 @@
         <div>
           <label>Numéro de carte vitale</label>
           <div id="ResearchInput">
-            <input id="vitNum" type="text" placeholder="Carte Vitale"/>
-            <button>Submit</button>
+            <input id="vitNum" type="text" placeholder="Carte Vitale" v-model="client.vital_card"/>
+            <button @click=FetchPatient(client.vital_card)>{{validateClient}}</button>
           </div>
         </div>
       </form>
@@ -20,93 +16,52 @@
 
     <form id="OrdoForm">
       <h1>Create a prescription</h1>
-      <div id="DocPart">
-        <h2>Médecin</h2>
-        <div>
-          <div id="DocInfo">
-            <div class="input">
-              <label>Nom</label>
-              <input type="text" placeholder="Nom" />
+      <div id="MedicamentPart">
+        <h2>Médicament(s)</h2>
+        
+        <div id="ValidMedocList" v-for="(medoc, index) in medicamentList" :key="index" >
+          <div id="ValidMedoc">
+            <div id="MedicamentOutput">
+              <div id="MedocInfo">
+                <div>{{medoc.nom_medicament}}</div>
+                <div>{{medoc.dosage}}</div>
+              </div>
+              <div id="MedocInfo">
+                <div>{{medoc.fréquence}}</div>
+                <div>{{medoc.duree}}</div>
+              </div>
             </div>
-            <div class="input">
-              <label>Spécialisation</label>
-              <input type="text" placeholder="Spécialisation"/>
-            </div>
-          </div>
-          <div id="DocAdress">
-            <div class="input">
-              <label>N°</label>
-              <input type="text" placeholder="N°"/>
-            </div>
-            <div class="input">
-              <label>Nom Rue</label>
-              <input type="text" placeholder="Nom Rue"/>
-            </div>
-            <div class="input">
-              <label>Code postal</label>
-              <input type="text" placeholder="Code Postal"/>
-            </div>
-          </div>
-          <label>Ville</label>
-          <input type="text" placeholder="Ville"/>
-          <label>Telephone</label>
-          <input type="text" placeholder="N° Téléphone"/>
-          <label>Code RPPS</label>
-          <input type="text" placeholder="Code RPPS" />
-        </div>
-      </div>
-      <div id="ClientPart">
-        <h2>Patient</h2>
-        <div id="ClientInfo">
-          <div class="input">
-            <label>Nom</label>
-            <input type="text" placeholder="Nom patient"/>
-          </div>
-          <div class="input">
-            <label>Prénom</label>
-            <input type="text" placeholder="Prénom"/>
-          </div>
-          <div class="input">
-            <label>Date de naissance</label>
-            <input type="text" placeholder="JJ/MM/AAAA"/>
+            <button id="supprMedicament" @click=removeMedicament(index)>X</button>
           </div>
         </div>
+
+
+        <div id="MedicamentList">
+          <div id="Médicament">
+            <div id="MedicamentInput">
+              <div id="MédicamentInfo">
+                <input type="text" placeholder="Médicament" v-model="medicament.nom_medicament"/>
+                <input type="text" placeholder="Dosage" v-model="medicament.dosage"/>
+              </div>
+              <div id="MédicamentInfo">
+                <input type="text" placeholder="Fréquence" v-model="medicament.fréquence"/>
+                <input type="text" placeholder="Durée" v-model="medicament.duree"/>
+              </div>
+              <button @click="validateMedoc()">Valider le médicament</button>
+            </div>
+          </div>
+        </div>
+
+
+        <button id="submitOrdoButton" @click=submitOrdo()>Créer l'ordonnance</button>
       </div>
+
     </form>
-      <!--<div>
-       <div class="gauche">
-        <label>Select a category </label>
-        <input
-          list="category"
-          v-model="product.category"
-          placeholder="Select a category"
-        />
-        <datalist id="category">
-          <option value="Anti-inflammatoires" />
-          <option value="Antibiotiques " />
-          <option value="Cardiologie " />
-          <option value="Dermatologie " />
-          <option value="Autres" />
-        </datalist>
-        <label>Name</label>
-        <input type="text" v-model="product.name" placeholder="Name" />
-      </div>
-      <div class="droite">
-        <label>Product's image link</label>
-        <input
-          type="text"
-          v-model="product.image"
-          placeholder="Product's image link"
-        />
-        <label>Price (in euros)</label>
-        <input
-          type="number"
-          v-model="product.price"
-          placeholder="Price (in euros)"
-        />
-      </div> -->
-      <!-- <button v-on:click="addProduct()" class="submit">Submit</button>
-    </div> -->
+
+    <div id="success" v-if="displaySuccess">
+      <h1>Ordonnance créée avec succès</h1>
+      <button @click="successButton()">Revenir à la page d'ordonnance</button>
+    </div>
       
   </div>
 </template>
@@ -117,34 +72,72 @@
     name: "AddProduct",
     data() {
       return {
-        product: {
-          id: "",
-          category: "",
-          name: "",
-          image: "",
-          price: "",
-          rating: null,
+        validateClient: "Chercher",
+        medecin:{
+          med_id: ""
         },
+        client:{
+          vital_card:"",
+          client_id:""
+        },
+        medicament:{
+          nom_medicament:"",
+          dosage:"",
+          fréquence:"",
+          duree:""
+        },
+        medicamentList: [],
+        displaySuccess: false,
       };
     },
     methods: {
-      addProduct() {
-        axios.post("http://localhost:3000/products", {
-          category: this.product.category,
-          name: this.product.name,
-          image: this.product.image,
-          price: this.product.price,
-          rating: this.product.rating,
-        });
-        console
-          .log(this.product)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      removeMedicament(index){
+        event.preventDefault()
+        this.medicamentList.splice(index, 1)
       },
+      async FetchPatient(patientSearch){
+        event.preventDefault()
+        const response = await axios.post("http://localhost:5000/med/getUser", {carteVitale : patientSearch})
+        console.log(response.data)
+        this.client.client_id = response.data._id
+        this.validateClient = "Patient trouvé"
+      },
+      validateMedoc(){
+        event.preventDefault()
+        this.medicamentList.push(this.medicament)
+        this.medicament = {
+          nom_medicament:"",
+          dosage:"",
+          fréquence:"",
+          duree:""
+        }
+        console.log(this.MedicamentList)
+      },
+      async submitOrdo(){
+        event.preventDefault()
+        const ordo = {
+          client_id : this.client.client_id,
+          medecin_id : this.medecin.med_id,
+          medicaments : this.medicamentList
+        }
+        console.log(ordo)
+        try{
+          const response  = await axios.post("http://localhost:5000/med/createOrdonnance", ordo)
+          this.displaySuccess = true
+          console.log(response.data)
+        }
+        catch(error){
+          console.log(error)
+        }
+        
+      },
+      successButton(){
+        window.location.reload()
+      }
+    },
+    mounted() {
+      this.medecin.med_id = localStorage.getItem("id")
+      console.log(this.medecin.med_id)
     },
   };
 </script>
@@ -161,23 +154,8 @@ body {
   left: 50%;
   top: 50%;
 }
-.background .shape {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
-}
-.shape:first-child {
-  background: linear-gradient(#0066ff, #ea00ff);
-  left: -290px;
-  top: -5px;
-}
-.shape:last-child {
-  background: linear-gradient(to right, #5eff00, #00ffbf);
-  right: -290px;
-  bottom: -100px;
-}
-#OrdoForm {
+
+#OrdoForm, #MedicamentList, #ValidMedocList {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -188,25 +166,69 @@ body {
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   background-color: rgba(255, 255, 255, 0.13);
   padding: 30px;
+  margin-bottom: 30px;
 }
 
-#DocPart, #ClientPart{
+#MédicamentInput{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   padding-bottom : 10px;
   border-bottom: solid black 2px;
 }
 
-#DocInfo, #DocAdress, #ClientInfo{
+#Médicament{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
+}
+
+#ValidMedoc{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+}
+
+#MedicamentOutput{
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: right;
+width: 100%;
+}
+
+#MedocInfo {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+width: 80%;
+margin-bottom: 10px;
+}
+
+
+#MédicamentInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#supprMedicament {
+  width: auto;
+  height: auto;
+  padding:3%;
+}
+
+input{
+  margin: 10px;
+  padding: 10px;
 }
 
 .input{
@@ -242,7 +264,7 @@ body {
   width: 100%;
 }
 
-#ResearchInput button{
+#ResearchInput button, #submitOrdoButton{
   background-color: #00a38c;
   color: #ffffff;
   width: 100px;
@@ -251,9 +273,22 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+
 }
 
-#ResearchInput button:hover{
+#submitOrdoButton{
+  background-color: #00a38c;
+  color: #ffffff;
+  width: auto;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+#ResearchInput button:hover, #submitOrdoButton:hover{
   background-color: #00c7b1;
 }
 
@@ -275,23 +310,10 @@ h1 {
 
 h2{
   margin-top: 50px;
+  margin-bottom: 20px;
 }
-.gauche, .droite {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.gauche {
-  grid-column-start: 1;
-  grid-column-end: 2;
-}
-.droite {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-}
+
+
 form * {
   font-family: "Poppins", sans-serif;
   color: #000000;
@@ -325,11 +347,8 @@ input {
 ::placeholder {
   color: #000000;
 }
+
 button {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: 4;
   margin-top: 50px;
   width: 100%;
   background-color: #000000;
@@ -339,6 +358,23 @@ button {
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
+}
+
+#success {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  background-color: rgba(255, 255, 255, 0.13);
+  padding: 30px;
+  margin-bottom: 30px;
+  width: 80%;
+  height: 80%;
 }
 
 </style>

@@ -2,36 +2,98 @@
   <header class="header">
     <div class="logo">
       <img src="" >
-      Ezmed : Meds for all
+      Ordolib : La plateforme de gestion des ordonnances en ligne
     </div>
   </header>
   <nav>
-    |<router-link to="/">Home</router-link> |
-    <router-link to="/Product">Admin Page</router-link> |
-    <router-link to="/doctor">Medecin</router-link> |
-    <router-link to="/client">Client</router-link> |
-    <router-link to="/pharma">Pharmacie</router-link> |
-
-    <router-link to="/register">Register</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <button id="logout" @click="handleClick" >Log out</button>
+    <router-link to="/">Home</router-link> 
+    <router-link v-if="userType === 0" to="/Product">Admin Page</router-link>
+    <router-link v-if="userType === 1" to="/client">Client</router-link>
+    <router-link v-if="userType === 2" to="/doctor">Medecin</router-link>
+    <router-link v-if="userType === 3" to="/pharma">Pharmacie</router-link>
+    
+    <router-link v-if="!isLoggedIn" to="/register">Register</router-link>
+    <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
+    <router-link v-if="isLoggedIn" to="/info">informations</router-link>
+    <button v-if="isLoggedIn" id="logout" @click="handleClick" >Log out</button>
   </nav>
-  <router-view />
+  <router-view @login="handleLogin" @id="handleId" />
+
+
   
 </template>
 
 <script>
+
 export default {
+  
   name: "App",
+  
   methods: {
+    
     handleClick() {
       console.log("logout")
       localStorage.removeItem("token");
-
-      this.$router.push("/login");
+      this.isLoggedIn = false;
+      
+      this.userType = null;
+      
+      localStorage.removeItem("isLoggedIn");
+      this.$router.push('/');
+      localStorage.removeItem("userType");
+      localStorage.removeItem("id");
     },
+    
+    handleLogin(userType) {
+      this.userType = userType;
+      this.isLoggedIn = true;
+
+      localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("userType", userType);
+      this.$emit('login');
+      if (this.userType === 0) {
+        this.$router.push('/Product');
+      }
+      else if (userType === 1) {
+        this.$router.push('/client');
+      }
+      else if (userType === 2) {
+        this.$router.push('/doctor');
+      }
+      else if (this.userType === 3) {
+        this.$router.push('/pharma');
+      }
+    }
+
   },
+      data() {
+        return {
+          isLoggedIn: false,
+          userType: null,
+        };
+      },
+      created() {
+          this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+          if (this.isLoggedIn) {
+            const userType = Number(localStorage.getItem("userType"));
+            this.handleLogin(userType);
+            localStorage.setItem("lastRoute", this.$route.path);
+          } else {
+            const lastRoute = localStorage.getItem('lastRoute');
+            console.log('Last route:', lastRoute);
+            if (lastRoute) {
+              this.$router.push(lastRoute);
+            } else {
+              this.$router.push('/');
+            }
+          }
+
+      },
 };
+
+  
+
+
 </script>
 
 <style scoped></style>
@@ -44,6 +106,7 @@ export default {
 }
 body {
   background-color: rgb(255, 255, 255);
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

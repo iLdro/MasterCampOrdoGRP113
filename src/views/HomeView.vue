@@ -5,65 +5,20 @@
   <br />
   <br />
   <br />
-  <div>
-    <h1>Souvent achetés</h1>
-    <br>
-    <div class="best-selling">
-      <div class="card">
-        <div class="imgBox">
-          <img
-            src="https://pharmaciedelaplage-cavalaire.fr/wp-content/uploads/sites/17/2022/11/image_produit-268045_411605478.png"
-          />
-        </div>
-        <div class="contentBox">
-          <div class="price">Doliprane, 2.50€</div>
-        </div>
-      </div>
-      <div class="cardb">
-        <div class="imgBox">
-          <img
-            src="https://www.biafine-lagamme.fr/sites/biafine_fr/files/styles/product_image/public/product-images/soleilbiafine-emulsion-visage-fps50-1.png"
-          />
-        </div>
-        <div class="contentBox">
-          <br />
-          <div class="price">Biafine, 2€</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="imgBox">
-          <img
-            src="https://pharmaciecroixrouge.fr/wp-content/uploads/sites/23/2022/12/image_produit-260644_536444385.png"
-          />
-        </div>
-        <div class="contentBox">
-          <br />
-          <br />
-          <div class="price">Nurofen, 4.50€</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="imgBox">
-          <img
-            src="https://www.pharmashopi.com/images/Image/Efferalgan-1g-agrumes-comprime-effervescent-8-com.png"
-          />
-        </div>
-        <div class="contentBox">
-          <br />
-          <div class="price">Efferalgan, 5.50€</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="imgBox">
-          <img
-            src="https://www.mon-pharmacien-conseil.com/14478-home_default/smecta-boite-de-60-sachets-arome-orange-vanille.jpg"
-          />
-        </div>
-        <div class="contentBox">
-          <div class="price">Smecta, 4€</div>
-        </div>
-      </div>
-    </div>
+  <div class="Text">
+    
+     <h2> Fini les tracas liés à la perte ou à l'oubli de vos ordonnances papier, notre solution vous offre une alternative pratique et sécurisée. 
+      Grâce à notre plateforme en ligne, vous pourrez facilement accéder à vos ordonnances de manière dématérialisée, 
+      les rendant ainsi disponibles à tout moment et depuis n'importe quel appareil connecté à Internet.</h2><br /><br />
+    
+    
+      <h2>Notre objectif est de simplifier votre parcours de santé en vous permettant de gérer vos ordonnances de manière efficace et moderne. 
+        Notre site internet offre une interface conviviale et intuitive, où vous pourrez télécharger, stocker et consulter vos ordonnances en quelques clics. 
+        De plus, notre système de sécurité avancé garantit la confidentialité de vos données médicales, assurant ainsi la protection de votre vie privée.</h2><br /><br />
+
+    <h2>En choisissant notre service de dématérialisation des ordonnances, vous contribuez également à la préservation de l'environnement en réduisant l'utilisation de papier. 
+      Nous croyons en l'importance de la transition vers des solutions numériques dans le domaine de la santé, et c'est pourquoi nous avons développé cette plateforme innovante. 
+      Rejoignez-nous dès aujourd'hui et découvrez les avantages pratiques et écologiques de la dématérialisation des ordonnances médicales.</h2><br /><br />
   </div>
 </template>
 
@@ -129,5 +84,11 @@ h1 {
 }
 .cardb .imgBox img {
   max-width: 75%;
+}
+.Text{
+  color: rgb(0, 0, 0);
+  width: 80%;
+  margin-left: 10%;
+  font-family: 'Montserrat', sans-serif;
 }
 </style>

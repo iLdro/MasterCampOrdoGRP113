@@ -1,23 +1,38 @@
 
-<template>
-  <!-- <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-  </div> -->
-  <form id="Connexion">
+<template >
+  <form id="Connexion"  >
     <h1>Login</h1>
-    <div id="ConnexionInfo">
-      <div class="input">
-        <label>Email</label>
-        <input type="text" placeholder="Email" />
-      </div>
-      <div class="input">
-        <label>Password</label>
-        <input type="text" placeholder="Password" />
+    <div id="ChoiceButton">
+      <button @click="MedChoice()" :class="{ 'selected': selectedRole === 'medecin' }">Medecin</button>
+      <button @click="ClientChoice()" :class="{ 'selected': selectedRole === 'client' }">Client</button>
+      <button @click="PharmaChoice()" :class="{ 'selected': selectedRole === 'pharmacien' }">Pharmacien</button>
+      <button @click="AdminChoice()" :class="{ 'selected': selectedRole === 'admin' }">Admin</button>
+
+    </div>
+
+    <form  @submit.prevent= "handleSubmit">
+    <div id="Login" v-if="roleChosen">
+      <div id="ConnexionInfo">
+        <div class="input">
+          <label>Email</label>
+          <input type="email" id="email" v-model="email" placeholder="Email" required />
+        </div>
+        <div class="input">
+          <label>Password</label>
+          <input type="password" id="password" v-model="password" placeholder="Password"  required/>
+        </div>
       </div>
     </div>
-    <button type="submit">Login</button>
+
+    
+    
+    <a @click="handleClick">mot de passe oublié?</a>
+    <br/>
+    <button type="Submit">Login</button>
+    <p v-if="message">{{ message }}</p>
+    </form>
   </form>
+
 </template>
 
 <script>
@@ -26,40 +41,117 @@ import axios from 'axios'
 
 import jwtDecode from 'jwt-decode';
 export default {
-  
-  data(){
-    return{
-      email:'',
-      password:''
-      }
-    },
-    methods: {
-    
-    
-
+  data() {
+    return {
+      email: '',
+      password: '',
+      message: '',
+      isMed: false,
+      isClient: false,
+      isPharma: false,
+      isAdmin: false,
+      roleChosen: false,
+    }
+  },
+  methods: {
     handleSubmit() {
-
+      event.preventDefault();
+      console.log("SUBMIT")
+      if (this.isMed) {
+        console.log("med route")
+        let route = "http://localhost:5000/login/med"
+        console.log("ROUTE : "+ route);
+        this.fetchGoodData(route)
+      }
+      else if (this.isClient) {
+        console.log("cleint route")
+        let route = "http://localhost:5000/login/user"
+        this.fetchGoodData(route)
+      }
+      else if (this.isPharma) {
+        console.log("pharma route")
+        let route = "http://localhost:5000/login/pharmacien"
+        this.fetchGoodData(route)
+      }
+      else if (this.isAdmin) {
+        console.log("admin route")
+        let route = "http://localhost:5000/login/admin"
+        this.fetchGoodData(route)
+      }
+    
+    },
+    fetchGoodData(route){
+      this.message = ''; // Reset the message value
+      console.log("ROUTE : "+ route); 
       axios
-        .post("http://localhost:5000/login/user", {
-          email: this.email,
-          password: this.password,
+        .post(route, {
+          email: String(this.email),
+          password: String(this.password),
         })
         .then((res) => {
           console.log(res.data);
           const decodedToken = jwtDecode(res.data);
-          console.log(decodedToken);
+          console.log("TOKEN DECODE : "+ decodedToken);
           localStorage.setItem("token", decodedToken);
+          const userType = decodedToken.userType;
+          const userId = decodedToken.id;
+          localStorage.setItem('id', userId);
+          this.$emit('login', userType);
+          this.$emit('id', userId);
+          console.log('emitted id event with value:', userId);
+          console.log("VOICI LID DE LOGIN : "+ userId);
+
+          this.message = 'Logged in successfully. Redirecting..';
         })
         .catch((err) => {
           console.log(err);
+          this.message = err.response.data;
+          console.log(`message: ${this.message}`);
         });
+    },
+    handleClick() {
+      this.$router.push('/recupmdp');
+    },
+    ClientChoice() {
+      this.roleChosen = true;
+      this.isMed = false;
+      this.isClient = true;
+      this.isPharma = false;
+      this.isAdmin = false;
+      this.selectedRole = 'client'; 
+    },
+    MedChoice() {
+      this.roleChosen = true;
+      this.isMed = true;
+      this.isClient = false;
+      this.isPharma = false;
+      this.isAdmin = false;
+      this.selectedRole = 'medecin'; 
+    },
+    PharmaChoice() {
+      this.roleChosen = true;
+      this.isMed = false;
+      this.isClient = false;
+      this.isPharma = true;
+      this.isAdmin = false;
+      this.selectedRole = 'pharmacien'; 
+    },
+    AdminChoice() {
+      this.roleChosen = true;
+      this.isMed = false;
+      this.isClient = false;
+      this.isPharma = false;
+      this.isAdmin = true;
+      this.selectedRole = 'admin'; 
+    },
 
-        }
-
-      },
-
-      };
+  },
+  created() {
+    this.message = '';
+  }
+};
 </script>
+
 
 <style scoped>
 body {
@@ -169,6 +261,7 @@ input {
 }
 button {
   margin-top: 50px;
+  margin-bottom: 20px;
   background-color: #000000;
   color: #ffffff;
   padding: 15px;
@@ -176,5 +269,21 @@ button {
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
+}
+
+#ChoiceButton{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 60%;
+}
+a{
+  margin: 20px;
+}
+
+.selected {
+  background-image: linear-gradient(to right, #00a38c, #0054a3);
+  color: #ffffff; 
 }
 </style>
