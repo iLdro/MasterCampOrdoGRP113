@@ -102,6 +102,7 @@ export default {
           console.log("VOICI LID DE LOGIN : "+ userId);
 
           this.message = 'Logged in successfully. Redirecting..';
+          
         })
         .catch((err) => {
           console.log(err);

@@ -35,29 +35,64 @@ export default {
       this.message = ''; 
       const userId = localStorage.getItem('id'); // Retrieve userId from localStorage
       //console.log('VOICI ID', userId);
-
+      const userType = localStorage.getItem('userType'); 
       if (this.nouveau === this.nouveau2 || this.ancien !== this.nouveau) {
         console.log(this.ancien);
         console.log(this.nouveau);
+        
+        if (userType == 1)
+          axios
+            .post('http://localhost:5000/user/changePassword', {
+              id: userId,
+              password: String(this.ancien),
+              newPassword: String(this.nouveau),
+            })
+            .then((res) => {
+              console.log('bien joué');
+              this.message = 'Changement de mot de passe effectué avec succès !';
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        else if (userType == 2)
+            axios
+              .post('http://localhost:5000/med/changePassword', {
+                id: userId,
+                password: String(this.ancien),
+                newPassword: String(this.nouveau),
+              })
+              .then((res) => {
+                console.log('bien joué');
+                this.message = 'Changement de mot de passe effectué avec succès !';
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+        else if (userType == 3)
+            axios
+              .post('http://localhost:5000/pharmacien/changePassword', {
+                id: userId,
+                password: String(this.ancien),
+                newPassword: String(this.nouveau),
+              })
+              .then((res) => {
+                console.log('bien joué');
+                this.message = 'Changement de mot de passe effectué avec succès !';
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
 
-        axios
-          .post('http://localhost:5000/user/changePassword', {
-            id: userId,
-            password: String(this.ancien),
-            newPassword: String(this.nouveau),
-          })
-          .then((res) => {
-            console.log('bien joué');
-            this.message = 'Changement de mot de passe effectué avec succès !';
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        console.log("T'a merdé");
-      }
-    },
+        } 
+        else {
+          console.log("ERREUR");
+        }
+        
+      
+      },
   },
   created() {
     this.message = '';

@@ -10,6 +10,7 @@
           <th class="fréquence">Frequence</th>
           <th class="Durée">Durée</th>
           <th class="Ordonnance">Ordonnance</th>
+          <th class="ID_Ordonnance">Id Ordonnance</th>
         </tr>
 
         <template v-for="(prescriptions, index) in prescriptions" :key="index">
@@ -22,8 +23,9 @@
               <td>{{ medicaments.dosage }}</td>
               <td>{{ medicaments.fréquence }}</td>
               <td>{{ medicaments.duree }}</td>
-              
+
               <td><a @click="displayOrdo(prescriptions)">Afficher</a></td>
+              <td>{{ prescriptions._id }}</td>
             </tr>
           </template>
         
@@ -58,7 +60,7 @@ export default {
         return {
           nom_medicament: med.nom_medicament,
           dosage: med.dosage,
-          frequence: med.fréquence,
+          fréquence: med.fréquence,
           duree: med.duree,
         };
       });
@@ -104,7 +106,9 @@ export default {
     
     },
   created() {
-    ProductService.getOrdonnance("64958e29428e5f9a03cba8ca")
+    const userId = localStorage.getItem("id");
+    console.log(userId);
+    ProductService.getOrdonnance(userId)
       .then(response => {
         console.log("ici LA REPONSE")
         console.log(response.data);
