@@ -32,9 +32,9 @@
       </div>
 
 
-      <button v-if="displaySaveButton" id="submitOrdoButton" @click=submitOrdo()>sauvegarder l'ordonnance</button>
-
-      <button v-if="displayValidateButton" id="finishOrdo" @click="finishOrdo()">Valider l'ordonnance</button>
+      <button v-if="displaySaveButton" id="submitOrdoButton" @click=submitOrdo()>sauvegarder l'ordonnance</button>  
+      
+      <button v-if="displayValidateButton" id="submitOrdoButton" @click="finishOrdo()">Valider l'ordonnance</button>
     </form>
 
 
