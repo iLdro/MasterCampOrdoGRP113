@@ -1,10 +1,5 @@
 <template>
-  <header class="header">
-    <div class="logo">
-      <img src="" >
-      Ordolib : La plateforme de gestion des ordonnances en ligne
-    </div>
-  </header>
+  
   <nav>
     <router-link to="/">Home</router-link> 
     <router-link v-if="userType === 0" to="/Product">Admin Page</router-link>
@@ -120,12 +115,14 @@ body {
 }
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  border-bottom: 0px;
+  border-bottom: 1px solid #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   padding: 30px;
   background-color: #ffffff;
   color: #00a38c;
+  font-size: 1.5em;
 }
 nav a {
   font-weight: bold;

@@ -208,6 +208,7 @@ h1 {
   background-color: rgba(255, 255, 255, 0.13);
   padding: 30px;
   margin-bottom: 20px;
+  margin-top: 5%;
 }
 
 #ConnexionInfo{
@@ -231,6 +232,7 @@ form * {
   letter-spacing: 0.5px;
   outline: none;
   border: none;
+  
 }
 form h3 {
   font-size: 32px;
