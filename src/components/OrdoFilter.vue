@@ -10,6 +10,7 @@
           <th class="fréquence">Frequence</th>
           <th class="Durée">Durée</th>
           <th class="Ordonnance">Ordonnance</th>
+          <th class="ID_Ordonnance">Id Ordonnance</th>
         </tr>
 
         <template v-for="(prescriptions, index) in prescriptions" :key="index">
@@ -22,8 +23,9 @@
               <td>{{ medicaments.dosage }}</td>
               <td>{{ medicaments.fréquence }}</td>
               <td>{{ medicaments.duree }}</td>
-              
+
               <td><a @click="displayOrdo(prescriptions)">Afficher</a></td>
+              <td>{{ prescriptions._id }}</td>
             </tr>
           </template>
         
