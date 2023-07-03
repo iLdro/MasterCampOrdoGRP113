@@ -140,6 +140,7 @@ h1 {
   grid-column-start: 1;
   grid-column-end: 3;
   height: 5px;
+  margin-top: 2%;
 }
 .gauche1,
 .droite1,

@@ -8,7 +8,7 @@
         <button v-if="showButtons" @click="showForm('form3')">Pharmarcie</button>
       </div>
     <form class="form1" @submit.prevent= "handleSubmit" v-if="currentForm === 'form1'">
-    <h1>Register</h1>
+    <h1>S'enregistrer</h1>
       <div class="gauche1">
         <label for="name">prénom</label>
         <input 
@@ -71,13 +71,13 @@
           required /><br />
       </div>
      
-      <button type="submit">Register</button>
+      <button type="submit">S'inscrire</button>
     </form>
     
   
   
     <form class="form2" @submit.prevent= "handleSubmit" v-if="currentForm === 'form2'">
-      <h1>Register</h1>
+      <h1>S'enregistrer</h1>
       <div class="gauche1">
         <label for="surname">Surname</label>
         <input 
@@ -183,13 +183,13 @@
           required /><br />
       </div>
       
-      <button type="submit">Register</button>
+      <button type="submit">S'inscrire</button>
     </form>
   
   
     
     <form class="form3" @submit.prevent= "handleSubmit" v-if="currentForm === 'form3'">
-      <h1>Register</h1>
+      <h1>S'enregistrer</h1>
       <div class="gauche1">
         <label for="surname">Prénom</label>
         <input 
@@ -294,7 +294,7 @@
           placeholder="Entrez votre date de naissance" 
           required /><br />
       </div>
-      <button type="submit">Register</button>
+      <button type="submit">S'inscrire</button>
     </form>
   
   
