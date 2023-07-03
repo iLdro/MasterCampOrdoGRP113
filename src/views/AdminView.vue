@@ -26,7 +26,7 @@
         <div id="PSComponent" v-for="Pharma in PharmaList" :key="Pharma">
           <div id ="PSInfo">
             <div id="nom">{{Pharma.name}} {{Pharma.firstname}}</div>
-            <div id="adress">{{Pharma.numberStreet}} {{Phama.street}}</div>
+            <div id="adress">{{Pharma.numberStreet}} {{Pharma.street}}</div>
             <div id="city">{{Pharma.city}} {{Pharma.postalCode}}</div>
           </div>
           <div id="mailRPPS">
