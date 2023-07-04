@@ -13,14 +13,4 @@ export default {
   getOrdonnance(id) {
     return apiClient.post("/user/getOrdonnances", { id });
   },
-  getProducts() {
-    return apiClient.get("/Products");
-  },
-  //added new call
-  deleteProduct(id) {
-    return apiClient.delete("/Products/" + id);
-  },
-  addProduct() {
-    return apiClient.post("/Products/");
-  },
 };

@@ -1,7 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-// import ProductList from "@/views/ProductList.vue";
-// import ProductDetails from "@/views/ProductDetails.vue";
 import DoctorView from "@/views/DoctorView.vue";
 
 const routes = [
@@ -55,7 +53,6 @@ const routes = [
       import(/* webpackChunkName: "recupmdp" */ "../views/RecupMdpView.vue"),
   },
 
-
   {
     path: "/doctor",
     name: "DoctorVieew",
@@ -73,26 +70,18 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn")==="true";
   const userType = Number(localStorage.getItem("userType")) ;
-  //console.log('isLoggedIn:', isLoggedIn);
-  //console.log('userType:', userType);
 
   const authRequiredRoutes = ["/Product", "/client", "/doctor", "/pharma"];
 
   if(authRequiredRoutes.includes(to.path)) {
-    //console.log('authRequiredRoutes includes to.path');
     if(isLoggedIn) {
-      //console.log('isLoggedIn is true');
       if((to.path === "/Product" )&& userType === 0) {
-        //console.log('allowing access to /Product or /info for userType 0');
         next();
       } else if((to.path === "/client" ) && userType === 1) {
-        //console.log('allowing access to /client or /info for userType 1');
         next();
       } else if((to.path === "/doctor") && userType === 2) {
-        //console.log('allowing access to /doctor or /info for userType 2');
         next();
       } else if((to.path === "/pharma" ) && userType === 3) {
-        //console.log('allowing access to /pharma or /info for userType 3');
         next();
       } else {
         console.log('redirecting to home page');
@@ -103,7 +92,6 @@ router.beforeEach((to, from, next) => {
       next("/");
     }
   } else {  
-    //console.log('authRequiredRoutes does not include to.path');
     next();
   }
 });
