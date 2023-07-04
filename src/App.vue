@@ -8,7 +8,7 @@
     <router-link v-if="userType === 3" to="/pharma">Pharmacie</router-link>
     
     <router-link v-if="!isLoggedIn" to="/register">S'inscrire</router-link>
-    <router-link v-if="!isLoggedIn" to="/login">Se connecter</router-link>
+    <router-link v-if="!isLoggedIn" to="/login">Connexion</router-link>
     <router-link v-if=" userType === 3||userType === 2 ||userType === 1" to="/info">Informations</router-link>
     <button v-if="isLoggedIn" id="logout" @click="handleClick" >Déconnexion</button>
   </nav>

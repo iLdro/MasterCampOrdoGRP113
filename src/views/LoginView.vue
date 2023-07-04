@@ -4,7 +4,7 @@
     <h1>Login</h1>
     <div id="ChoiceButton">
       <button @click="MedChoice()" :class="{ 'selected': selectedRole === 'medecin' }">Medecin</button>
-      <button @click="ClientChoice()" :class="{ 'selected': selectedRole === 'client' }">Client</button>
+      <button @click="ClientChoice()" :class="{ 'selected': selectedRole === 'client' }">Patient</button>
       <button @click="PharmaChoice()" :class="{ 'selected': selectedRole === 'pharmacien' }">Pharmacien</button>
       <button @click="AdminChoice()" :class="{ 'selected': selectedRole === 'admin' }">Admin</button>
 
