@@ -31,10 +31,11 @@
         </div>
       </div>
 
-
-      <button v-if="displaySaveButton" id="submitOrdoButton" @click=submitOrdo()>sauvegarder l'ordonnance</button>  
+      <div id="ordoButton">
+        <button v-if="displaySaveButton" id="submitOrdoButton" @click=submitOrdo()>sauvegarder l'ordonnance</button>  
       
-      <button v-if="displayValidateButton" id="submitOrdoButton" @click="finishOrdo()">Valider l'ordonnance</button>
+        <button v-if="displayValidateButton" id="submitOrdoButton" @click="finishOrdo()">Valider l'ordonnance</button>
+      </div>
     </form>
 
 
@@ -247,15 +248,15 @@ input {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: left;
   width: 100%;
-  padding-bottom : 10px;
 }
 
 #MedicamentInfo{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-bottom: 5%;
 }
 
 #supprButton {
@@ -279,6 +280,7 @@ input {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  margin-bottom: 2%;
 }
 
 #success {
@@ -296,5 +298,10 @@ input {
   margin-bottom: 30px;
   width: 80%;
   height: 80%;
+}
+
+#ordoButton{
+  display: flex;
+  flex-direction: column;
 }
 </style>

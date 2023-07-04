@@ -14,7 +14,7 @@
       </form>
     </header>
 
-    <form id="OrdoForm">
+    <form id="OrdoForm" v-if="displayMedoc">
       <h1>Create a prescription</h1>
       <div id="MedicamentPart">
         <h2>Médicament(s)</h2>
@@ -88,6 +88,7 @@
         },
         medicamentList: [],
         displaySuccess: false,
+        displayMedoc: false
       };
     },
     methods: {
@@ -101,6 +102,7 @@
         console.log(response.data)
         this.client.client_id = response.data._id
         this.validateClient = "Patient trouvé"
+        this.displayMedoc = true
       },
       validateMedoc(){
         event.preventDefault()
