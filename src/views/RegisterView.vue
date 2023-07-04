@@ -10,7 +10,7 @@
     <form class="form1" @submit.prevent= "handleSubmit" v-if="currentForm === 'form1'">
     <h1>S'enregistrer</h1>
       <div class="gauche1">
-        <label for="name">prénom</label>
+        <label for="name">Prénom</label>
         <input 
           v-model="form1.surname" 
           type="text" 
@@ -20,7 +20,7 @@
       </div>
   
       <div class="droite1">
-        <label for="name" >Name</label>
+        <label for="name" >Nom</label>
         <input 
           v-model="form1.name" 
           type="text" 
@@ -52,7 +52,7 @@
   
   
       <div class="gauche2">
-        <label for="password">Password</label>
+        <label for="password">Mot de passe</label>
         <input
           v-model="form1.password"
           type="password"
@@ -79,7 +79,7 @@
     <form class="form2" @submit.prevent= "handleSubmit" v-if="currentForm === 'form2'">
       <h1>S'enregistrer</h1>
       <div class="gauche1">
-        <label for="surname">Surname</label>
+        <label for="surname">Prénom</label>
         <input 
           v-model="form2.surname" 
           type="text" 
@@ -88,7 +88,7 @@
           required/><br />
       </div>
       <div class="droite1">
-        <label for="name" >Name</label>
+        <label for="name" >Nom</label>
         <input 
           v-model="form2.name" 
           type="text" 
@@ -116,7 +116,7 @@
       </div>
   
       <div id="adressname" class="gauche1">
-        <label for="adressname">Nom rue</label>
+        <label for="adressname">Nom de rue</label>
         <input
           v-model="form2.adressname"
           type="text" 
@@ -246,7 +246,7 @@
       </div>
   
       <div id="adressname"  class="gauche1">
-        <label for="adressname">Nom rue</label>
+        <label for="adressname">Nom de rue</label>
         <input
           v-model="form3.adressname"
           type="text" 
