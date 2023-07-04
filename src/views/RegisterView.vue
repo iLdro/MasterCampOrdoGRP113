@@ -499,7 +499,7 @@
   .form2{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-top: 3%;
+    margin-top: 6%;
     width: 800px;
     background-color: rgba(255, 255, 255, 0.13);
     position: absolute;
@@ -516,7 +516,7 @@
   .form3{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-top: 3%;
+    margin-top: 6%;
     width: 800px;
     background-color: rgba(255, 255, 255, 0.13);
     position: absolute;
@@ -544,7 +544,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    
   }
   .gauche1 {
     grid-column-start: 1;

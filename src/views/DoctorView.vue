@@ -379,4 +379,8 @@ button {
   height: 80%;
 }
 
+header{
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
 </style>

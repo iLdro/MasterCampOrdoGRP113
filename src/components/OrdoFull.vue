@@ -15,13 +15,13 @@
 
             </tr>
               <tr>
-            <th class="nom_medicament">Nom</th>
-            <th class="dosage">Dosage</th>
-            <th class="fréquence">Frequence</th>
-            <th class="Durée">Durée</th>
-            
-            <th class="ID_Ordonnance">Id Ordonnance</th>
-          </tr>
+                <th class="nom_medicament">Nom</th>
+                <th class="dosage">Dosage</th>
+                <th class="fréquence">Frequence</th>
+                <th class="Durée">Durée</th>
+                
+                <th class="ID_Ordonnance">Id Ordonnance</th>
+              </tr>
             <tr v-for="(medicaments, subIndex) in prescriptions.medicaments" :key="subIndex">
               <td>{{ medicaments.nom_medicament }}</td>
               <td>{{ medicaments.dosage }}</td>

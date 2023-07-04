@@ -4,32 +4,37 @@
     <div class="prescriptions">
       <table>
         <br />
-        <tr>
-          <th class="nom_medicament">Nom</th>
-          <th class="dosage">Dosage</th>
-          <th class="fréquence">Frequence</th>
-          <th class="Durée">Durée</th>
-          <th class="Ordonnance">Ordonnance</th>
-          <th class="ID_Ordonnance">Id Ordonnance</th>
-        </tr>
+       
+        
 
-        <template v-for="(prescriptions, index) in prescriptions" :key="index">
-          <template v-if="prescriptions.expired === false">
+          <template v-for="(prescriptions, index) in prescriptions" :key="index">
+            <template v-if="prescriptions.expired === false">
             <tr>
-              <td colspan="4">Prescription {{ index + 1 }}</td>
+              <td colspan="5">
+                <button @click="displayOrdo(prescriptions)">Afficher prescription N°{{ index + 1 }}</button>
+              </td>
+
             </tr>
+              <tr>
+                <th class="nom_medicament">Nom</th>
+                <th class="dosage">Dosage</th>
+                <th class="fréquence">Fréquence</th>
+                <th class="Durée">Durée</th>
+                <th class="ID_Ordonnance">Id Ordonnance</th>
+              </tr>
             <tr v-for="(medicaments, subIndex) in prescriptions.medicaments" :key="subIndex">
               <td>{{ medicaments.nom_medicament }}</td>
               <td>{{ medicaments.dosage }}</td>
               <td>{{ medicaments.fréquence }}</td>
               <td>{{ medicaments.duree }}</td>
-
-              <td><a @click="displayOrdo(prescriptions)">Afficher</a></td>
+              
+              
               <td>{{ prescriptions._id }}</td>
             </tr>
+
+
+            </template>
           </template>
-        
-        </template>
       </table>
     </div>
   </div>
@@ -161,12 +166,18 @@ tr {
   height: 5px;
 }
 th {
-  font-size: 25px;
-  text-decoration: underline;
-  width: 150px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  padding: 10px;
+  width: 20%;
+  
 }
 
-
+td {
+  padding: 10px;
+  width: 20%;
+}
 
 
 
@@ -183,7 +194,7 @@ button {
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
   border: 0px;
-  width: 75%;
+  
 }
 button:hover {
   background-position: right center;
@@ -197,4 +208,36 @@ input {
   height: 150px;
   width: 300px;
 }
+
+
+.prescriptions {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.prescriptions table {
+  width: 100%;
+}
+
+.prescriptions th {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  padding: 10px;
+  width: 20%;
+}
+
+.prescriptions td {
+  
+  width: 20%;
+}
+
+.prescriptions a {
+  color: #00a38c;
+  cursor: pointer;
+}
+
 </style>

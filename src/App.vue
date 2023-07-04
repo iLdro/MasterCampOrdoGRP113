@@ -3,16 +3,16 @@
   <nav>
     <router-link to="/">Home</router-link> 
     <router-link v-if="userType === 0" to="/Product">Admin Page</router-link>
-    <router-link v-if="userType === 1" to="/client">Client</router-link>
+    <router-link v-if="userType === 1" to="/client">Patient</router-link>
     <router-link v-if="userType === 2" to="/doctor">Medecin</router-link>
     <router-link v-if="userType === 3" to="/pharma">Pharmacie</router-link>
     
-    <router-link v-if="!isLoggedIn" to="/register">Register</router-link>
-    <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
-    <router-link v-if=" userType === 3||userType === 2 ||userType === 1" to="/info">informations</router-link>
-    <button v-if="isLoggedIn" id="logout" @click="handleClick" >Log out</button>
+    <router-link v-if="!isLoggedIn" to="/register">S'inscrire</router-link>
+    <router-link v-if="!isLoggedIn" to="/login">Se connecter</router-link>
+    <router-link v-if=" userType === 3||userType === 2 ||userType === 1" to="/info">Informations</router-link>
+    <button v-if="isLoggedIn" id="logout" @click="handleClick" >Déconnexion</button>
   </nav>
-  <router-view @login="handleLogin" @id="handleId" />
+  <router-view @login="handleLogin" @id="handleId" /> 
 
 
   

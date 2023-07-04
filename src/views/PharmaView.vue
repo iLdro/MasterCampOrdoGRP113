@@ -304,4 +304,7 @@ input {
   display: flex;
   flex-direction: column;
 }
+header{
+  margin-top: 3%;
+}
 </style>

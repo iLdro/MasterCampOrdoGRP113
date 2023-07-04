@@ -4,7 +4,7 @@
       
       
       <button v-on:click="navigateTo('products')">Listes d'ordonnances</button> 
-      <button v-on:click="navigateTo('cart')">Filtre liste</button>
+      <button v-on:click="navigateTo('cart')">Listes d'ordonnances filtrée</button>
     </header>
     
     <div v-if="page === 'cart'">
