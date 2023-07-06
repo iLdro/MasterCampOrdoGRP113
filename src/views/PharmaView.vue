@@ -3,7 +3,7 @@
   <div id="body">
     <header>
       <form id="OrdoResearch">
-        <h1>Find your ordonnance</h1>
+        <h1>Trouver l'ordonnance</h1>
         <div>
           <label>Numéro de l'ordonnance</label>
           <div id="ResearchInput">

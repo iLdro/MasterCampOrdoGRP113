@@ -118,6 +118,7 @@ export default {
   width: 100%;
   margin-bottom: 20px;
   padding: auto;
+  margin-top: 3%;
 }
 
 #PSComponent {

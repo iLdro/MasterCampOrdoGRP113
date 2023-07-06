@@ -18,8 +18,8 @@
           <input type="email" id="email" v-model="email" placeholder="Email" required />
         </div>
         <div class="input">
-          <label>Password</label>
-          <input type="password" id="password" v-model="password" placeholder="Password"  required/>
+          <label>Mot de passe</label>
+          <input type="password" id="password" v-model="password" placeholder="Mot de passe"  required/>
         </div>
       </div>
     </div>

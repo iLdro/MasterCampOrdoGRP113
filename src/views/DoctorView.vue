@@ -3,7 +3,7 @@
   <div id="body">
     <header>
       <form id="patientResearch">
-        <h1>Find your patient</h1>
+        <h1>Trouvez votre patient</h1>
         <div>
           <label>Numéro de carte vitale</label>
           <div id="ResearchInput">
@@ -15,7 +15,7 @@
     </header>
 
     <form id="OrdoForm" v-if="displayMedoc">
-      <h1>Create a prescription</h1>
+      <h1>Créer une ordonnance</h1>
       <div id="MedicamentPart">
         <h2>Médicament(s)</h2>
         
